@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>resources/icons/icon_usb.png</file>
+    </qresource>
+</RCC>

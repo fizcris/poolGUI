@@ -3,44 +3,71 @@ import QtQuick 2.12
 import QtQml.Models 2.3
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
+import QtGraphicalEffects 1.0
 
 
 Window {
+    property real  scaleFactor: 0.2
+
     visible: true
     width: 1920
     height: 1080
-    title: qsTr("Speedometer")
+    title: qsTr("poolGUI")
     color: "#000000"
     visibility:  "FullScreen"
 
     Rectangle {
         id: rectangleTop
-        width: Window.width
-        height: 160
+        width: parent.width
+        height: 100
         anchors.top: parent
         anchors.topMargin: 0
-        anchors.horizontalCenter: parent.horizontalCenter
         color: "#66ccff"
 
         Text {
-                    id: time
-                    //anchors.centerIn: parent
-                    text: qsTr("22:45")
-                    color: "white"
-                    font.pointSize: 50
-                    anchors.centerIn: parent
-                    anchors.horizontalCenter: parent.left
+                id: time
+                //anchors.centerIn: parent
+                text: qsTr("22:45")
+                color: "white"
+                font.pointSize: 50
+                anchors.left: parent.left
+                anchors.leftMargin: 10
+                anchors.verticalCenter: parent.verticalCenter
+
 
                 }
 
         Text {
-                    id: date
-                    //anchors.centerIn: parent
-                    text: qsTr("22 - 11 - 1992")
-                    color: "white"
-                    font.pointSize: 50
+                id: date
+                //anchors.centerIn: parent
+                text: qsTr("22 - 11 - 1992")
+                color: "white"
+                font.pointSize: 50
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.left: time.right
+                anchors.leftMargin: 50
                 }
 
+
+        Image {
+            id: usb_icon
+            anchors.right: parent.right
+            anchors.rightMargin: 0
+            anchors.verticalCenter: parent.verticalCenter
+            source: "qrc:/resources/icons/icon_usb.png"
+            scale: scaleFactor
+            visible: false
+        }
+
+        ColorOverlay {
+                anchors.fill: usb_icon
+                source: usb_icon
+                //color: "#ff0000"  // red
+                //color: "#d98123"  //orange
+                color: "#228a08"  //green
+
+                scale: scaleFactor
+            }
     }
 
     Rectangle {
