@@ -1,10 +1,8 @@
+import QtQuick 2.9
 import QtQuick.Window 2.3
-import QtQuick 2.12
 import QtQml.Models 2.3
-import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import QtGraphicalEffects 1.0
-
 
 Window {
     property real  scaleFactor: 0.2
@@ -12,7 +10,7 @@ Window {
     visible: true
     width: 1920
     height: 1080
-    title: qsTr("poolGUI")
+    //title: qsTr("poolGUI")
     color: "#000000"
     visibility:  "FullScreen"
 
@@ -65,7 +63,6 @@ Window {
                 //color: "#ff0000"  // red
                 //color: "#d98123"  //orange
                 color: "#228a08"  //green
-
                 scale: scaleFactor
             }
     }
@@ -105,6 +102,8 @@ Window {
         }
     }
 }
+
+
 
 
 
