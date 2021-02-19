@@ -87,21 +87,74 @@ Window {
         anchors.top: rectangleTop.bottom
         anchors.topMargin: 0
         anchors.left: rectangleLeft.right
-        color: "#cbf359"
+        color: "#cceef7"
 
         Text {
             id: strText2
+            x: 306
+            y: 360
             //anchors.centerIn: parent
             text: qsTr("Hello2")
             color: "black"
             font.pointSize: 50
         }
-    }
 
-    MouseArea {
-        anchors.fill: rectangleRight
-        onClicked: {
-            strText2.text = "Clicked"
+        Switch {
+            id: switch1
+            x: 85
+            y: 65
+            width: 203
+            height: 40
+            text: "Suelo radiante"
+            display: AbstractButton.TextBesideIcon
+        }
+
+        SwitchDelegate {
+            id: switchDelegate
+            x: 85
+            y: 249
+            width: 235
+            height: 52
+            text: qsTr("Piscina")
+        }
+
+        Switch {
+            id: switch2
+            x: 85
+            y: 117
+            width: 198
+            height: 40
+            text: qsTr("Piscina")
+        }
+
+        Switch {
+            id: switch3
+            x: 85
+            y: 163
+            width: 198
+            height: 40
+            text: qsTr("Series")
+        }
+
+        Switch {
+            id: switch4
+            x: 90
+            y: 209
+            width: 198
+            height: 40
+            text: qsTr("Paralelo")
+        }
+
+        Dial {
+            id: dial
+            x: 119
+            y: 591
+        }
+
+        Dial {
+            id: dial1
+            x: 432
+            y: 591
         }
     }
 }
@@ -109,3 +162,9 @@ Window {
 
 
 
+
+/*##^##
+Designer {
+    D{i:0;formeditorZoom:0.75}D{i:12}D{i:13}
+}
+##^##*/
