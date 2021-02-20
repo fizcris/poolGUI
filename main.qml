@@ -25,28 +25,28 @@ Window {
         color: "#66ccff"
 
         Text {
-                id: time
-                //anchors.centerIn: parent
-                text: qsTr("22:45")
-                color: "white"
-                font.pointSize: 50
-                anchors.left: parent.left
-                anchors.leftMargin: 10
-                anchors.verticalCenter: parent.verticalCenter
+            id: time
+            //anchors.centerIn: parent
+            text: qsTr("22:45")
+            color: "white"
+            font.pointSize: 50
+            anchors.left: parent.left
+            anchors.leftMargin: 10
+            anchors.verticalCenter: parent.verticalCenter
 
 
-                }
+        }
 
         Text {
-                id: date
-                //anchors.centerIn: parent
-                text: qsTr("22 - 11 - 1992")
-                color: "white"
-                font.pointSize: 50
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.left: time.right
-                anchors.leftMargin: 50
-                }
+            id: date
+            //anchors.centerIn: parent
+            text: qsTr("22 - 11 - 1992")
+            color: "white"
+            font.pointSize: 50
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.left: time.right
+            anchors.leftMargin: 50
+        }
 
 
         Image {
@@ -60,14 +60,14 @@ Window {
         }
 
         ColorOverlay {
-                anchors.fill: usb_icon
-                source: usb_icon
-                //color: "#ff0000"  // red
-                //color: "#d98123"  //orange
-                color: "#228a08"  //green
+            anchors.fill: usb_icon
+            source: usb_icon
+            //color: "#ff0000"  // red
+            //color: "#d98123"  //orange
+            color: "#228a08"  //green
 
-                scale: scaleFactor
-            }
+            scale: scaleFactor
+        }
     }
 
     Rectangle {
@@ -91,71 +91,124 @@ Window {
 
         Text {
             id: strText2
-            x: 306
-            y: 360
+            x: -1080
+            y: 950
+            width: 546
+            height: 30
             //anchors.centerIn: parent
-            text: qsTr("Hello2")
-            color: "black"
+            text: qsTr("Designed By  C. Alonso in Galifornia")
+            elide: Text.ElideNone
+            horizontalAlignment: Text.AlignLeft
+            verticalAlignment: Text.AlignVCenter
+            lineHeightMode: Text.ProportionalHeight
+            wrapMode: Text.WrapAnywhere
+            maximumLineCount: 2
+            font.family: "Courier"
+            minimumPointSize: 8
+            minimumPixelSize: 8
+            color: "#e61da4"
             font.pointSize: 50
         }
 
         Switch {
-            id: switch1
-            x: 85
-            y: 65
-            width: 203
-            height: 40
-            text: "Suelo radiante"
-            display: AbstractButton.TextBesideIcon
-        }
-
-        SwitchDelegate {
-            id: switchDelegate
-            x: 85
-            y: 249
-            width: 235
-            height: 52
-            text: qsTr("Piscina")
-        }
-
-        Switch {
             id: switch2
-            x: 85
-            y: 117
-            width: 198
-            height: 40
-            text: qsTr("Piscina")
-        }
+            x: 330
+            y: 14
+            width: 180
+            height: 56
+            text: qsTr("ON/Off")
+            font.family: "Verdana"
+            font.pointSize: 16
+            checked: false
 
-        Switch {
-            id: switch3
-            x: 85
-            y: 163
-            width: 198
-            height: 40
-            text: qsTr("Series")
-        }
-
-        Switch {
-            id: switch4
-            x: 90
-            y: 209
-            width: 198
-            height: 40
-            text: qsTr("Paralelo")
+            indicator.height: 300
         }
 
         Dial {
             id: dial
-            x: 119
-            y: 591
+            x: 16
+            y: 546
+            width: 400
+            height: 400
+            hoverEnabled: true
+            wrap: false
+            inputMode: Dial.Circular
+            snapMode: Dial.SnapAlways
+            to: 40
         }
 
         Dial {
             id: dial1
-            x: 432
-            y: 591
+            x: 437
+            y: 545
+            width: 400
+            height: 400
         }
+
+        SwipeDelegate {
+            id: swipeDelegate
+            x: 142
+            y: 142
+            width: 194
+            height: 86
+            text: qsTr("Piscina")
+            font.weight: Font.ExtraBold
+            font.pointSize: 16
+            font.family: "Verdana"
+        }
+
+        SwipeDelegate {
+            id: swipeDelegate1
+            x: 496
+            y: 142
+            width: 194
+            height: 86
+            text: qsTr("Piscina")
+            font.family: "Verdana"
+            font.weight: Font.ExtraBold
+            font.pointSize: 16
+        }
+
+        SwipeDelegate {
+            id: swipeDelegate2
+            x: 142
+            y: 258
+            width: 194
+            height: 86
+            text: qsTr("Piscina")
+            font.family: "Verdana"
+            font.weight: Font.ExtraBold
+            font.pointSize: 16
+        }
+
+        SwipeDelegate {
+            id: swipeDelegate3
+            x: 496
+            y: 258
+            width: 194
+            height: 86
+            text: qsTr("Piscina")
+            font.family: "Verdana"
+            font.weight: Font.ExtraBold
+            font.pointSize: 16
+        }
+
+        SwipeDelegate {
+            id: swipeDelegate4
+            x: 342
+            y: 412
+            width: 194
+            height: 86
+            text: qsTr("Piscina")
+            font.family: "Verdana"
+            font.weight: Font.ExtraBold
+            font.pointSize: 16
+        }
+
+
+
+
+
     }
 }
 
@@ -165,6 +218,6 @@ Window {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.75}D{i:12}D{i:13}
+    D{i:0;formeditorZoom:0.5}D{i:13}D{i:14}D{i:15}D{i:16}
 }
 ##^##*/
