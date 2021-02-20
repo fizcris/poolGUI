@@ -2,8 +2,10 @@
 #include <QQmlApplicationEngine>
 #include <QtDebug>
 
+
 int main(int argc, char *argv[])
 {
+
     qDebug() << "Hello world";
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 

@@ -1,5 +1,10 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
+        <file>RectangleTop.qml</file>
+        <file>RectangleLeft.qml</file>
+        <file>Hot_cold_switch.qml</file>
+        <file>RectangleRight.qml</file>
+        <file>Dial_mode.qml</file>
     </qresource>
 </RCC>

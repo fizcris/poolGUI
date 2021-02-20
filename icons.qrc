@@ -1,5 +1,11 @@
 <RCC>
     <qresource prefix="/">
         <file>resources/icons/icon_usb.png</file>
+        <file>resources/icons/icon_cold.png</file>
+        <file>resources/icons/icon_hot.png</file>
+        <file>resources/icons/icon_floor.png</file>
+        <file>resources/icons/icon_paralell.png</file>
+        <file>resources/icons/icon_pool.png</file>
+        <file>resources/icons/icon_series.png</file>
     </qresource>
 </RCC>
