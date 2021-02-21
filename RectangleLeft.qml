@@ -7,6 +7,7 @@ import QtGraphicalEffects 1.0
 
 Rectangle {
     id: rectangleLeft_priv
+    color: "transparent"
     width: mainWindow.width * 9/16
     height: mainWindow.height - rectangleTop.height
     anchors {
@@ -14,6 +15,16 @@ Rectangle {
         top: rectangleTop.top
         topMargin: rectangleTop.height
     }
+
+    Rectangle {
+        id: background
+        color: "green"
+        width: parent.width
+        height: parent.height
+        opacity: 0.3
+    }
+
+
 
 
     Image {
@@ -24,7 +35,7 @@ Rectangle {
             verticalCenter: parent.verticalCenter
             horizontalCenter: parent.horizontalCenter
         }
-        source: "qrc:/resources/images/background_left.jpg"
+        source: "qrc:/resources/scada/scada_full.png"
         visible: true
     }
     
@@ -37,6 +48,7 @@ Rectangle {
 //            horizontalCenter: parent.horizontalCenter
 //        }
 //    }
+
     
     Text {
         id: strText2
@@ -53,8 +65,8 @@ Rectangle {
         wrapMode: Text.WrapAnywhere
         maximumLineCount: 2
         font.family: "Courier"
-        color: "white"
-        font.pointSize: 20
+        color: "black"
+        font.pointSize: 28
     }
     
     

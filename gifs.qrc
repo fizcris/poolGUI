@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>resources/gifs/animation_right.gif</file>
+        <file>resources/gifs/animation_top.giff</file>
+    </qresource>
+</RCC>

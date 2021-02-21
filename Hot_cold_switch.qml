@@ -6,7 +6,17 @@ import QtQuick.Layouts 1.12
 import QtGraphicalEffects 1.0
 
 Rectangle{
+    property alias checked: cold_hot_switch.checked
+
+    function toggleState() {
+        if (cold_hot_comp.state == "cold")
+            cold_hot_comp.state = "hot";
+        else
+            cold_hot_comp.state = "cold";
+    }
+
     id: cold_hot_comp
+    state: "hot"
     width: 320
     height: 80
     color: "transparent"
@@ -30,7 +40,7 @@ Rectangle{
             //color: "#ff0000"  // red
             color: "#d98123"  //orange
             //color: "#228a08"  //green
-            visible: !cold_hot_switch.checked
+            //visible: true
         }
     }
 
@@ -40,6 +50,13 @@ Rectangle{
         //height: 56
         checked: false
         scale: 2.5
+        enabled: rectangleTop.checked
+        state: "off"
+
+        onCheckedChanged: {
+            toggleState();
+            console.log(cold_hot_switch.state)
+        }
 
 
         anchors {
@@ -97,10 +114,25 @@ Rectangle{
             anchors.fill: parent
             source: parent
             color: "blue"
-            //color: "#ff0000"  // red
-            //color: "#d98123"  //orange
-            //color: "#228a08"  //green
-            visible: cold_hot_switch.checked
+            //visible: false
         }
     }
+
+    states: [
+        State {
+            name: "hot"
+            PropertyChanges { target: cold_icon_color; visible: false }
+            PropertyChanges { target: hot_icon_color; visible: true }
+            //PropertyChanges { target: cold_hot_switch.indicator.childrenRect; color: "red" }
+            PropertyChanges { target: dial_mode; dialValue: 2 }
+
+        },
+        State {
+            name: "cold"
+            PropertyChanges { target: cold_icon_color; visible: true }
+            PropertyChanges { target: hot_icon_color; visible: false }
+
+            PropertyChanges { target: dial_mode; dialValue: 2 }
+        }
+    ]
 }

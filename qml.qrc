@@ -6,5 +6,6 @@
         <file>Hot_cold_switch.qml</file>
         <file>RectangleRight.qml</file>
         <file>Dial_mode.qml</file>
+        <file>Thermostat.qml</file>
     </qresource>
 </RCC>

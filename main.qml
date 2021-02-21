@@ -8,14 +8,20 @@ import QtGraphicalEffects 1.0
 
 
 Window {
-    //property real  scaleFactor: 0.2
     id:mainWindow
     visible: true
     width: 1920
     height: 1080
-    //title: qsTr("poolGUI")
     color: "#000000"
     visibility:  "FullScreen"
+
+
+    AnimatedImage {
+        id: animation_right
+        source: "qrc:/resources/gifs/animation_right.gif"
+        width: parent.width
+        height: parent.height
+    }
 
     RectangleTop {
         id: rectangleTop
@@ -27,12 +33,10 @@ Window {
 
     RectangleLeft {
         id: rectangleLeft
-        color: "#d7fff7"
     }
 
     RectangleRight {
         id: rectangleRight
-        color: "red"
     }
 
     // Delete cursor

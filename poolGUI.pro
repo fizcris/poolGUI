@@ -17,8 +17,10 @@ SOURCES += \
         main.cpp
 
 RESOURCES += qml.qrc \
+    gifs.qrc \
     icons.qrc \
-    images.qrc
+    images.qrc \
+    scada.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =

@@ -5,13 +5,15 @@ import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import QtGraphicalEffects 1.0
 
-
 Rectangle {
     id: rectangleRight_priv
     x: 1080
     y: 100
     width: Window.width * 7/16
     height: Window.height - rectangleTop.height
+    color: "transparent"
+
+    opacity: rectangleTop.checked ? 1  : 0.3
 
     anchors {
         left: rectangleLeft.right
@@ -19,17 +21,26 @@ Rectangle {
         topMargin: rectangleTop.height
     }
 
-    Image {
-        id: background_right_image
-        width: parent.width
-        height: parent.height
-        anchors {
-            verticalCenter: parent.verticalCenter
-            horizontalCenter: parent.horizontalCenter
-        }
-        source: "qrc:/resources/images/background_right.jpg"
-        visible: true
+    Rectangle {
+    id: background
+    width: parent.width
+    height: parent.height
+    color: "#F4AF1A"
+    opacity: 0.05
     }
+
+//    Image {
+//        id: background_right_image
+//        width: parent.width
+//        height: parent.height
+//        anchors {
+//            verticalCenter: parent.verticalCenter
+//            horizontalCenter: parent.horizontalCenter
+//        }
+//        source: "qrc:/resources/images/background_right.jpg"
+//        visible: true
+//    }
+
 
 
     Hot_cold_switch {

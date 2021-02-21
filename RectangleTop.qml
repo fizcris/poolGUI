@@ -6,8 +6,11 @@ import QtQuick.Layouts 1.12
 import QtGraphicalEffects 1.0
 
 Rectangle {
+    property alias checked: on_off_switch.checked
+
     id: rectangleTop_priv
-    color: "#66ccff"
+    color: "transparent"
+    opacity: 1
     width: Window.width
     height: 100
     anchors {
@@ -15,12 +18,27 @@ Rectangle {
         top: Window.top
         topMargin: 0;
     }
+
+    Rectangle {
+    id: background
+    width: parent.width
+    height: parent.height
+    color: "#3FBFBF"
+    opacity: 0.1
+    }
+
+//    AnimatedImage {
+//        id: animation_top
+//        source: "qrc:/resources/gifs/animation_top.giff"
+//        width: parent.width
+//        height: parent.height
+//    }
     
     Text {
         id: time
         //anchors.centerIn: parent
         text: qsTr("22:45")
-        color: "white"
+        color: "#000000"
         font.pointSize: 50
         anchors.left: parent.left
         anchors.leftMargin: 50
@@ -31,7 +49,7 @@ Rectangle {
         id: date
         //anchors.centerIn: parent
         text: qsTr("22 - 11 - 1992")
-        color: "white"
+        color: "#000000"
         font.pointSize: 50
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: time.right
