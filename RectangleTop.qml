@@ -6,25 +6,18 @@ import QtQuick.Layouts 1.12
 import QtGraphicalEffects 1.0
 
 Rectangle {
-    property alias checked: on_off_switch.checked
+    property alias switchOnOff: on_off_switch
 
     id: rectangleTop_priv
     color: "transparent"
     opacity: 1
-    width: Window.width
-    height: 100
-    anchors {
-        left: Window.left
-        top: Window.top
-        topMargin: 0;
-    }
 
     Rectangle {
     id: background
     width: parent.width
     height: parent.height
     color: "#3FBFBF"
-    opacity: 0.1
+    opacity: 0.3
     }
 
 //    AnimatedImage {

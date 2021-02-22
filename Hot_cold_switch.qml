@@ -5,7 +5,7 @@ import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import QtGraphicalEffects 1.0
 
-Rectangle{
+Item {
     property alias checked: cold_hot_switch.checked
 
     function toggleState() {
@@ -17,9 +17,8 @@ Rectangle{
 
     id: cold_hot_comp
     state: "hot"
-    width: 320
-    height: 80
-    color: "transparent"
+    //width: 320
+    //height: 80
 
     Image {
         id: hot_icon
@@ -32,26 +31,18 @@ Rectangle{
         }
         source: "qrc:/resources/icons/icon_hot.png"
         visible: true
-
         ColorOverlay {
             id: hot_icon_color
             anchors.fill: parent
             source: parent
-            //color: "#ff0000"  // red
-            color: "#d98123"  //orange
-            //color: "#228a08"  //green
-            //visible: true
+            color: "orange"
         }
     }
-
     Switch {
         id: cold_hot_switch
-        //width: 120
-        //height: 56
         checked: false
         scale: 2.5
-        enabled: rectangleTop.checked
-        state: "off"
+        enabled: rectangleTop.switchOnOff.checked
 
         onCheckedChanged: {
             toggleState();

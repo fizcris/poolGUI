@@ -9,9 +9,6 @@ import QtGraphicalEffects 1.0
 
 Window {
     id:root
-
-    property alias thermoOn: root.visible
-
     visible: true
     width: 1920
     height: 1080
@@ -29,28 +26,47 @@ Window {
     RectangleTop {
         id: rectangleTop
         anchors {
+            left: root.left
+            top: root.top
+            topMargin: 0;
             horizontalCenter: root.horizontalCenter
-            topMargin: 40
         }
+        height: 100
+        width: parent.width
     }
 
     RectangleLeft {
         id: rectangleLeft
+        width: root.width * 9/16
+        height: root.height - rectangleTop.height
+        anchors {
+            left: root.left
+            top: rectangleTop.top
+            topMargin: rectangleTop.height
+        }
     }
 
     RectangleRight {
         id: rectangleRight
+        width: root.width * 7/16
+        height: root.height - rectangleTop.height
+        anchors {
+            left: rectangleLeft.right
+            top: parent.top
+            topMargin: rectangleTop.height
+        }
     }
 
     // Delete cursor
     MouseArea {
+        id: allScreen
         anchors.fill: parent
         enabled: false
         cursorShape: Qt.BlankCursor
     }
     // TODO Implement animation on tap
     TapHandler {
-        onTapped: console.log("left clicked")
+        onTapped: console.log("Add sound")
     }
 }
 

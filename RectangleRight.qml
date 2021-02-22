@@ -6,58 +6,42 @@ import QtQuick.Layouts 1.12
 import QtGraphicalEffects 1.0
 
 Rectangle {
-
-
     id: rectangleRight_priv
-    x: 1080
-    y: 100
-    width: Window.width * 7/16
-    height: Window.height - rectangleTop.height
     color: "transparent"
-
-    opacity: rectangleTop.checked ? 1  : 0.3
-
-    anchors {
-        left: rectangleLeft.right
-        top: parent.top
-        topMargin: rectangleTop.height
-    }
+    opacity: rectangleTop.switchOnOff.checked ? 1  : 0.3
 
     Rectangle {
-    id: background
-    width: parent.width
-    height: parent.height
-    color: "#F4AF1A"
-    opacity: 0.05
+        id: background
+        width: parent.width
+        height: parent.height
+        color: "#F4AF1A"
+        opacity: 0.05
     }
-
-//    Image {
-//        id: background_right_image
-//        width: pareanchorsnt.width
-//        height: parent.height
-//        anchors {
-//            verticalCenter: parent.verticalCenter
-//            horizontalCenter: parent.horizontalCenter
-//        }
-//        source: "qrc:/resources/images/background_right.jpg"
-//        visible: true
-//    }
-
-
-
+    //    Image {
+    //        id: background_right_image
+    //        width: pareanchorsnt.width
+    //        height: parent.height
+    //        anchors {
+    //            verticalCenter: parent.verticalCenter
+    //            horizontalCenter: parent.horizontalCenter
+    //        }
+    //        source: "qrc:/resources/images/background_right.jpg"
+    //        visible: true
+    //    }
     Hot_cold_switch {
         id: hc_switch
+        implicitWidth: 120
+        implicitHeight: 56
         anchors {
             top: parent.top
             topMargin: 50
-            horizontalCenter: parent.horizontalCenter
+            left: parent.left
+            leftMargin: 250
         }
-
     }
-
-
     Dial_mode {
-        id: dial_mode
+       id: dial_mode
+        width: parent.width
         height: 380
         anchors {
             top: hc_switch.bottom
@@ -68,24 +52,26 @@ Rectangle {
 
     Thermostat {
         id: thermostat_pool
+        width: parent.width/2
+        height: parent.height - hc_switch.height -  dial_mode.height
         anchors {
             top: dial_mode.bottom
-            topMargin: 50
             left: parent.left
-            leftMargin: 50
         }
-        //width: 400 // DO NOT USE THIS
-        //height: 400
+        enabled: true
+        //scale: 1.2
     }
 
-//    Thermostat {
-//        id: thermostat_floor
-//        anchors {
-//            top: dial_mode.bottom
-//            topMargin: 50
-//            left: thermostat_pool.right
-//            leftMargin: 50
-//        }
+    Thermostat {
+        id: thermostat_floor
+        width: parent.width/2
+        height: parent.height - hc_switch.height -  dial_mode.height
+        anchors {
+            top: dial_mode.bottom
+            left: thermostat_pool.right
+        }
+        enabled: false
+        //scale: 1.2
 
-//    }
+    }
 }

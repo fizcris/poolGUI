@@ -24,6 +24,7 @@ import QtGraphicalEffects 1.0
 
 Item {
     id: thermostat_comp
+    property alias isEnabled:  thermostat_comp.enabled
 
     readonly property int roomViewTempWidth: 15 + 42
     readonly property int roomViewTempHeight: 2 + 52
@@ -60,16 +61,12 @@ Item {
     onCurrentTempChanged: {
         //currentRoom.temperature = currentTemp
     }
-
-
     function setTemperature(t : real) {
         _setTemperatureImpl(t, false)
     }
-
     function setTemperatureWithoutAnimation(t : real) {
         _setTemperatureImpl(t, true)
     }
-
     function _setTemperatureImpl(t : real, stopAnimation : bool) {
         currentTemp = Math.min(Math.max(Math.round(t), minTemp), maxTemp);
         tens.stopAnimation = stopAnimation
@@ -81,11 +78,12 @@ Item {
     Item {
         width: wheelImg.width
         height: width
-
-
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: parent.top
+        anchors.topMargin: 40
         Image {
             id: wheelImg
-            source: root.thermoOn ? "qrc:/resources/icons/jog.png" : "qrc:/resources/icons/jog-off.png"
+            source: thermostat_comp.enabled ? "qrc:/resources/icons/jog.png" : "qrc:/resources/icons/jog-off.png"
         }
         Row {
             clip: true
@@ -96,12 +94,12 @@ Item {
 
             AnimatedDigit {
                 id: tens
-                visible: root.thermoOn;
+                visible: thermostat_comp.enabled;
                 value: thermostat_comp.currentTemp / 10
             }
             AnimatedDigit {
                 id: ones
-                visible: root.thermoOn;
+                visible: thermostat_comp.enabled ;
                 value: thermostat_comp.currentTemp % 10
             }
         }
@@ -119,7 +117,7 @@ Item {
             source: "qrc:/resources/icons/digitMaskBottom.png"
         }
         Text {
-            visible: root.thermoOn
+            visible: thermostat_comp.enabled
             color: "#3d464d"
             anchors.top: thermoText.top
             anchors.left: thermoText.right
@@ -129,7 +127,7 @@ Item {
             font.family: "Roboto Medium"
         }
         MouseArea {
-            visible: root.thermoOn
+            visible: thermostat_comp.enabled
 
             width: parent.width
             height: parent.height / 2
@@ -158,7 +156,7 @@ Item {
             }
         }
         MouseArea {
-            visible: root.thermoOn
+            visible: thermostat_comp.enabled
 
             width: parent.width
             height: parent.height / 2
@@ -191,7 +189,7 @@ Item {
 
         Image {
             id: thermoHandle
-            visible: root.thermoOn
+            visible: thermostat_comp.enabled
             z: 10
             source: "qrc:/resources/icons/inner-circle.png"
             property real angle: (90 + thermostat_comp.smallestAngle + (thermostat_comp.currentTemp - thermostat_comp.minTemp)/(thermostat_comp.maxTemp-thermostat_comp.minTemp)  * (360-2*thermostat_comp.smallestAngle) )
@@ -236,4 +234,18 @@ Item {
         }
 
     }
+    Text{
+    height: 40
+    width: parent.width
+    anchors.horizontalCenter: parent.horizontalCenter
+    anchors.bottom: parent.bottom
+    anchors.bottomMargin: 100
+    //anchors.top: thermostat_comp.bottom
+    text: qsTr("           Piscina")
+    color: "white"
+    font.pixelSize: 40
+    }
 }
+
+
+

@@ -8,24 +8,16 @@ import QtGraphicalEffects 1.0
 Rectangle {
     id: rectangleLeft_priv
     color: "transparent"
-    width: root.width * 9/16
-    height: root.height - rectangleTop.height
-    anchors {
-        left: root.left
-        top: rectangleTop.top
-        topMargin: rectangleTop.height
-    }
 
     Rectangle {
         id: background
         color: "green"
         width: parent.width
         height: parent.height
-        opacity: 0.3
+        opacity: 0.4
     }
-
     Image {
-        id: background_right_image
+        id: scada_full_image
         width: parent.width
         height: parent.height
         anchors {
@@ -35,14 +27,12 @@ Rectangle {
         source: "qrc:/resources/scada/scada_full.png"
         visible: true
     }
-        
     Text {
         id: text_designed_by
         x: 10
         y: 940
         width: 800
         height: 30
-        //anchors.centerIn: parent
         text: qsTr("Designed By C. Alonso in Galifornia")
         elide: Text.ElideNone
         horizontalAlignment: Text.AlignLeft
