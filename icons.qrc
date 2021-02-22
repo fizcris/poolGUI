@@ -7,5 +7,15 @@
         <file>resources/icons/icon_paralell.png</file>
         <file>resources/icons/icon_pool.png</file>
         <file>resources/icons/icon_series.png</file>
+        <file>resources/icons/jog.png</file>
+        <file>resources/icons/jog-off.png</file>
+        <file>resources/icons/digitMaskBottom.png</file>
+        <file>resources/icons/digitMaskTop.png</file>
+        <file>resources/icons/pressed-bg-up.png</file>
+        <file>resources/icons/temp-up-pressed.png</file>
+        <file>resources/icons/temp-down-pressed.png</file>
+        <file>resources/icons/pressed-bg-down.png</file>
+        <file>resources/icons/inner-circle.png</file>
+        <file>resources/icons/thermo-handle.png</file>
     </qresource>
 </RCC>

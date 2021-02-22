@@ -8,7 +8,10 @@ import QtGraphicalEffects 1.0
 
 
 Window {
-    id:mainWindow
+    id:root
+
+    property alias thermoOn: root.visible
+
     visible: true
     width: 1920
     height: 1080
@@ -16,17 +19,17 @@ Window {
     visibility:  "FullScreen"
 
 
-    AnimatedImage {
-        id: animation_right
-        source: "qrc:/resources/gifs/animation_right.gif"
-        width: parent.width
-        height: parent.height
-    }
+//    AnimatedImage {
+//        id: animation_background
+//        source: "qrc:/resources/gifs/animation_right.gif"
+//        width: parent.width
+//        height: parent.height
+//    }
 
     RectangleTop {
         id: rectangleTop
         anchors {
-            horizontalCenter: mainWindow.horizontalCenter
+            horizontalCenter: root.horizontalCenter
             topMargin: 40
         }
     }

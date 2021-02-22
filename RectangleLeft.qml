@@ -8,10 +8,10 @@ import QtGraphicalEffects 1.0
 Rectangle {
     id: rectangleLeft_priv
     color: "transparent"
-    width: mainWindow.width * 9/16
-    height: mainWindow.height - rectangleTop.height
+    width: root.width * 9/16
+    height: root.height - rectangleTop.height
     anchors {
-        left: mainWindow.left
+        left: root.left
         top: rectangleTop.top
         topMargin: rectangleTop.height
     }
@@ -24,9 +24,6 @@ Rectangle {
         opacity: 0.3
     }
 
-
-
-
     Image {
         id: background_right_image
         width: parent.width
@@ -38,22 +35,11 @@ Rectangle {
         source: "qrc:/resources/scada/scada_full.png"
         visible: true
     }
-    
-//    Text {
-//        id: name
-//        text: (rectangleTop.right).toString()
-//        font.pointSize: 40
-//        anchors {
-//            verticalCenter: parent.verticalCenter
-//            horizontalCenter: parent.horizontalCenter
-//        }
-//    }
-
-    
+        
     Text {
-        id: strText2
-        x: 0
-        y: 950
+        id: text_designed_by
+        x: 10
+        y: 940
         width: 800
         height: 30
         //anchors.centerIn: parent
@@ -68,6 +54,5 @@ Rectangle {
         color: "black"
         font.pointSize: 28
     }
-    
     
 }

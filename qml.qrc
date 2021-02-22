@@ -7,5 +7,8 @@
         <file>RectangleRight.qml</file>
         <file>Dial_mode.qml</file>
         <file>Thermostat.qml</file>
+        <file>AnimatedDigit.qml</file>
+        <file>Theme.qml</file>
+        <file>ColorStyle.qml</file>
     </qresource>
 </RCC>

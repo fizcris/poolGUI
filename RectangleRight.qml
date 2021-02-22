@@ -6,6 +6,8 @@ import QtQuick.Layouts 1.12
 import QtGraphicalEffects 1.0
 
 Rectangle {
+
+
     id: rectangleRight_priv
     x: 1080
     y: 100
@@ -31,7 +33,7 @@ Rectangle {
 
 //    Image {
 //        id: background_right_image
-//        width: parent.width
+//        width: pareanchorsnt.width
 //        height: parent.height
 //        anchors {
 //            verticalCenter: parent.verticalCenter
@@ -64,24 +66,26 @@ Rectangle {
         }
     }
 
-    Dial {
-        id: dial
-        x: 16
-        y: 546
-        width: 400
-        height: 400
-        hoverEnabled: true
-        wrap: false
-        inputMode: Dial.Circular
-        snapMode: Dial.SnapAlways
-        to: 40
+    Thermostat {
+        id: thermostat_pool
+        anchors {
+            top: dial_mode.bottom
+            topMargin: 50
+            left: parent.left
+            leftMargin: 50
+        }
+        //width: 400 // DO NOT USE THIS
+        //height: 400
     }
 
-    Dial {
-        id: dial1
-        x: 437
-        y: 545
-        width: 400
-        height: 400
-    }
+//    Thermostat {
+//        id: thermostat_floor
+//        anchors {
+//            top: dial_mode.bottom
+//            topMargin: 50
+//            left: thermostat_pool.right
+//            leftMargin: 50
+//        }
+
+//    }
 }
