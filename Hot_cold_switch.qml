@@ -126,4 +126,13 @@ Item {
             PropertyChanges { target: dial_mode; dialValue: 2 }
         }
     ]
+
+    transitions: [
+        Transition {
+            // Update dial state
+            ScriptAction {
+                script: dial_mode.setState()
+            }
+        }
+    ]
 }

@@ -140,7 +140,6 @@ Item {
                 source: "qrc:/resources/icons/pressed-bg-up.png"
                 anchors.centerIn: parent
             }
-
             Image {
                 source: "qrc:/resources/icons/temp-up-pressed.png"
                 anchors.centerIn: parent
@@ -164,13 +163,11 @@ Item {
             width: parent.width
             height: parent.height / 2
             anchors.bottom: parent.bottom
-
             Image {
                 visible: parent.pressed
                 source: "qrc:/resources/icons/pressed-bg-down.png"
                 anchors.centerIn: parent
             }
-
             Image {
                 visible: true
                 source: "qrc:/resources/icons/temp-down-pressed.png"
@@ -184,7 +181,6 @@ Item {
                     visible: true
                 }
             }
-
             onClicked: {
                 thermostat_comp.setTemperature(thermostat_comp.currentTemp-1);
             }

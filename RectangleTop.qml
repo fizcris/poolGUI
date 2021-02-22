@@ -56,6 +56,9 @@ Rectangle {
         checked: false
         scale: 2.5
 
+        //Update Dial_mode state
+        onCheckedChanged: {rectangleRight.dialMode.setState()}
+
         anchors {
             verticalCenter: parent.verticalCenter
             right: parent.right

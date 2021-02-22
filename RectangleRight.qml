@@ -7,6 +7,9 @@ import QtGraphicalEffects 1.0
 
 Rectangle {
     id: rectangleRight_priv
+
+    property alias dialMode: dial_mode
+
     color: "transparent"
     opacity: rectangleTop.switchOnOff.checked ? 1  : 0.3
 
