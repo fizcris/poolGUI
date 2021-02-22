@@ -24,11 +24,9 @@ import QtQuick 2.12
 
 Item {
     id: slider
-
-
-    y: -Theme.roomViewTempHeight
-    height: Theme.roomViewTempHeight * 3
-    width: Theme.roomViewTempWidth/2
+    y: -thermostat_comp.roomViewTempHeight
+    height: thermostat_comp.roomViewTempHeight * 3
+    width: thermostat_comp.roomViewTempWidth/2
 
     property alias reversed: animation.reversed
     property alias stopAnimation: animation.stopAnimation
@@ -54,8 +52,8 @@ Item {
             font.family: "Roboto"
             font.weight: Font.Medium
             verticalAlignment: Text.AlignVCenter
-            width: Theme.roomViewTempWidth/2
-            height: Theme.roomViewTempHeight
+            width: thermostat_comp.roomViewTempWidth/2
+            height: thermostat_comp.roomViewTempHeight
         }
         Text {
             id: currentValueText
@@ -66,8 +64,8 @@ Item {
             font.family: "Roboto"
             font.weight: Font.Medium
             verticalAlignment: Text.AlignVCenter
-            width: Theme.roomViewTempWidth/2
-            height: Theme.roomViewTempHeight
+            width: thermostat_comp.roomViewTempWidth/2
+            height: thermostat_comp.roomViewTempHeight
         }
         Text {
             id: prevValueText
@@ -78,8 +76,8 @@ Item {
             font.family: "Roboto"
             font.weight: Font.Medium
             verticalAlignment: Text.AlignVCenter
-            width: Theme.roomViewTempWidth/2
-            height: Theme.roomViewTempHeight
+            width: thermostat_comp.roomViewTempWidth/2
+            height: thermostat_comp.roomViewTempHeight
         }
     }
 
@@ -98,13 +96,13 @@ Item {
             target: slider
             property: "y"
             duration: animation.stopAnimation ? 0 : 250
-            from: -Theme.roomViewTempHeight
-            to: animation.reversed ? -2*Theme.roomViewTempHeight : 0
+            from: -thermostat_comp.roomViewTempHeight
+            to: animation.reversed ? -2*thermostat_comp.roomViewTempHeight : 0
         }
         ScriptAction {
             script: {
                 slider.currentDigit = slider.value
-                slider.y = -Theme.roomViewTempHeight
+                slider.y = -thermostat_comp.roomViewTempHeight
             }
         }
     }

@@ -59,7 +59,7 @@ Rectangle {
             left: parent.left
         }
         enabled: true
-        //scale: 1.2
+        scale: 1.15
     }
 
     Thermostat {
@@ -71,7 +71,7 @@ Rectangle {
             left: thermostat_pool.right
         }
         enabled: false
-        //scale: 1.2
+        scale: 1.15
 
     }
 }

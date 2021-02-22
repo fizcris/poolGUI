@@ -92,14 +92,17 @@ Item {
             width: thermostat_comp.roomViewTempWidth
             height: thermostat_comp.roomViewTempHeight
 
+            //Rectangle {width: 50; height: 50;color: "red";opacity: 0.7}
+            //Rectangle {width: 50; height: 50;color: "blue";opacity: 0.7}
+
             AnimatedDigit {
                 id: tens
-                visible: thermostat_comp.enabled;
+                visible: thermostat_comp.enabled
                 value: thermostat_comp.currentTemp / 10
             }
             AnimatedDigit {
                 id: ones
-                visible: thermostat_comp.enabled ;
+                visible: thermostat_comp.enabled
                 value: thermostat_comp.currentTemp % 10
             }
         }
@@ -241,7 +244,7 @@ Item {
     anchors.bottom: parent.bottom
     anchors.bottomMargin: 100
     //anchors.top: thermostat_comp.bottom
-    text: qsTr("           Piscina")
+    text: qsTr("       Thermostat")
     color: "white"
     font.pixelSize: 40
     }
