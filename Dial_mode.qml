@@ -13,10 +13,11 @@ Item  {
     property alias dialValue: dial_dial_mode.value
     //Output
     property alias state: dial_mode_priv.state
-
-
+    // Change state function
     function setState(){
-        if (dial_dial_mode.value === 1 && !hc_switch.checked)
+        if (!rectangleTop.switchOnOff.checked)
+            dial_mode_priv.state = "";
+        else if (dial_dial_mode.value === 1 && !hc_switch.checked)
             dial_mode_priv.state = "hot_pool";
         else if (dial_dial_mode.value === 0 && !hc_switch.checked)
             dial_mode_priv.state = "hot_floor";
@@ -28,12 +29,7 @@ Item  {
             dial_mode_priv.state = "cold_series";
         else if (dial_dial_mode.value === 3 && hc_switch.checked)
             dial_mode_priv.state = "cold_paralell";
-        else if (rectangleTop.switchOnOff.checked)
-            dial_mode_priv.state = "";
     }
-
-    //property alias dialValue: dial_dial_mode.value
-
     property int x1: 70
     property int x2: 170
 
@@ -48,6 +44,7 @@ Item  {
         spacing: 0
 
         Item{
+            id:pool_item
             width: parent.width/2
             height: parent.height/2
             Image {
@@ -58,8 +55,7 @@ Item  {
                 anchors.verticalCenter: parent.verticalCenter
                 source: "qrc:/resources/icons/icon_pool.png"
                 visible: true
-                opacity: hc_switch.checked ? 0.3 : 1
-
+                opacity: 1
                 ColorOverlay {
                     id: pool_icon_color
                     anchors.fill: parent
@@ -67,8 +63,6 @@ Item  {
                     color: "gray"
                     visible: false
                 }
-
-
             }
             TapHandler {
                 enabled: rectangleTop.switchOnOff.checked && !hc_switch.checked
@@ -114,7 +108,7 @@ Item  {
 
                 source: "qrc:/resources/icons/icon_floor.png"
                 visible: true
-                opacity: hc_switch.checked ? 0.3 : 1
+                opacity: 1
 
                 ColorOverlay {
                     id: floor_icon_color
@@ -179,14 +173,15 @@ Item  {
             scale: 3
         }
         background: Rectangle {
+            id: knob_background
             x: dial_dial_mode.width / 2 - width / 2
             y: dial_dial_mode.height / 2 - height / 2
             width: Math.max(64, Math.min(dial_dial_mode.width, dial_dial_mode.height))
             height: width
-            color: hc_switch.checked ? "blue" : "orange";
+            color: "gray"
             radius: width / 2
-            border.color: dial_dial_mode.pressed ? "#17a81a" : "#21be2b"
-            opacity: dial_dial_mode.enabled ? 0.6 : 0.3
+            //border.color: dial_dial_mode.pressed ? "#17a81a" : "#21be2b"
+            opacity: 0.3
         }
         Text {
             anchors{
@@ -194,62 +189,66 @@ Item  {
                 verticalCenter: parent.verticalCenter
             }
             id: dial_text
-            text: qsTr("Piscina")/*{
-                if (dial_dial_mode.value == 0) return qsTr("Ambiente")
-                if (dial_dial_mode.value == 1) return qsTr("Piscina")
-                if (dial_dial_mode.value == 2) return qsTr("Serie")
-                if (dial_dial_mode.value == 3) return qsTr("Paralelo")
-            }*/
+            text: qsTr("......")
 
             font.pointSize: 40
             color: "#000000"
         }
     }
-
     state: ""
     states:[
         State{
             name:"hot_pool"
             PropertyChanges { target: dial_text; text: qsTr("Piscina") }
             PropertyChanges { target: pool_icon_color; color: "orange"; visible:true  }
+            PropertyChanges { target: knob_background; color: "orange"; opacity: 1;}
         },
         State{
             name:"hot_floor"
             PropertyChanges { target: dial_text; text: qsTr("Suelo") }
             PropertyChanges { target: floor_icon_color; color: "orange"; visible:true  }
+            PropertyChanges { target: knob_background; color: "orange"; opacity: 1;}
         },
         State{
             name:"hot_series"
-            PropertyChanges { target: dial_text; text: qsTr("Series") }
+            PropertyChanges { target: dial_text; text: qsTr("Serie") }
             PropertyChanges { target: series_icon_color; color: "orange"; visible:true  }
+            PropertyChanges { target: knob_background; color: "orange"; opacity: 1;}
         },
         State{
             name:"hot_paralell"
             PropertyChanges { target: dial_text; text: qsTr("Paralelo") }
             PropertyChanges { target: paralell_icon_color; color: "orange"; visible:true  }
+            PropertyChanges { target: knob_background; color: "orange"; opacity: 1;}
         },
         State{
             name:"cold_series"
             PropertyChanges { target: dial_text; text: qsTr("Serie") }
             PropertyChanges { target: series_icon_color; color: "blue"; visible:true  }
+            PropertyChanges { target: pool_icon; opacity: 0.3;  }
+            PropertyChanges { target: floor_icon; opacity: 0.3;  }
+            PropertyChanges { target: knob_background; color: "blue"; opacity: 1;}
         },
         State{
             name:"cold_paralell"
             PropertyChanges { target: dial_text; text: qsTr("Paralelo") }
             PropertyChanges { target: paralell_icon_color; color: "blue"; visible:true  }
+            PropertyChanges { target: pool_icon; opacity: 0.3;  }
+            PropertyChanges { target: floor_icon; opacity: 0.3;  }
+            PropertyChanges { target: knob_background; color: "blue"; opacity: 1;}
+
         },
         State{
             name:""
-            PropertyChanges { target: dial_text; text: qsTr("......") }
         }
 
     ]
 
     transitions: [
         Transition {
-            // Update dial state
+            // On state change
             ScriptAction {
-                script: console.log(dial_mode.state);
+                script: console.log("Current State: ",dial_mode.state);
             }
         }
     ]
