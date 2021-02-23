@@ -65,6 +65,7 @@ Item  {
                 }
             }
             TapHandler {
+                id: tapHandlerPool
                 enabled: rectangleTop.switchOnOff.checked && !hc_switch.checked
                 onTapped: dial_dial_mode.value = 1
             }
@@ -202,24 +203,49 @@ Item  {
             PropertyChanges { target: dial_text; text: qsTr("Piscina") }
             PropertyChanges { target: pool_icon_color; color: "orange"; visible:true  }
             PropertyChanges { target: knob_background; color: "orange"; opacity: 1;}
+            PropertyChanges { target: thermostat_pool; enabled: true;}
+            PropertyChanges { target: rectangleLeft.scadaItem.scadaImage; source: "qrc:/resources/scada/scada_hot_pool.png";}
+            PropertyChanges { target: rectangleLeft.scadaItem.scadaPumpPool; source: "qrc:/resources/scada/pump_on.png";}
+            PropertyChanges { target: rectangleLeft.scadaItem.scadaPumpHeatEx; source: "qrc:/resources/scada/pump_on.png";}
+
         },
         State{
             name:"hot_floor"
             PropertyChanges { target: dial_text; text: qsTr("Suelo") }
             PropertyChanges { target: floor_icon_color; color: "orange"; visible:true  }
             PropertyChanges { target: knob_background; color: "orange"; opacity: 1;}
+            PropertyChanges { target: thermostat_floor; enabled: true;}
+            PropertyChanges { target: rectangleLeft.scadaItem.scadaImage; source: "qrc:/resources/scada/scada_hot_floor.png";}
+            PropertyChanges { target: rectangleLeft.scadaItem.scadavk3; source: "qrc:/resources/scada/valve_vk3_on.png";}
+            PropertyChanges { target: rectangleLeft.scadaItem.scadavk1; source: "qrc:/resources/scada/valve_vk1_on.png";}
+            PropertyChanges { target: rectangleLeft.scadaItem.scadaPumpFloor; source: "qrc:/resources/scada/pump_on.png";}
         },
         State{
             name:"hot_series"
             PropertyChanges { target: dial_text; text: qsTr("Serie") }
             PropertyChanges { target: series_icon_color; color: "orange"; visible:true  }
             PropertyChanges { target: knob_background; color: "orange"; opacity: 1;}
+            PropertyChanges { target: thermostat_pool; enabled: true;}
+            PropertyChanges { target: thermostat_floor; enabled: true;}
+            PropertyChanges { target: rectangleLeft.scadaItem.scadaImage; source: "qrc:/resources/scada/scada_hot_series.png";}
+            PropertyChanges { target: rectangleLeft.scadaItem.scadavk2; source: "qrc:/resources/scada/valve_3_on.png";}
+            PropertyChanges { target: rectangleLeft.scadaItem.scadavk3; source: "qrc:/resources/scada/valve_vk3_on.png";}
+            PropertyChanges { target: rectangleLeft.scadaItem.scadaPumpPool; source: "qrc:/resources/scada/pump_on.png";}
+            PropertyChanges { target: rectangleLeft.scadaItem.scadaPumpHeatEx; source: "qrc:/resources/scada/pump_on.png";}
+            PropertyChanges { target: rectangleLeft.scadaItem.scadaPumpFloor; source: "qrc:/resources/scada/pump_on.png";}
         },
         State{
             name:"hot_paralell"
             PropertyChanges { target: dial_text; text: qsTr("Paralelo") }
             PropertyChanges { target: paralell_icon_color; color: "orange"; visible:true  }
             PropertyChanges { target: knob_background; color: "orange"; opacity: 1;}
+            PropertyChanges { target: thermostat_pool; enabled: true;}
+            PropertyChanges { target: thermostat_floor; enabled: true;}
+            PropertyChanges { target: rectangleLeft.scadaItem.scadaImage; source: "qrc:/resources/scada/scada_hot_paralell.png";}
+            PropertyChanges { target: rectangleLeft.scadaItem.scadavk3; source: "qrc:/resources/scada/valve_vk3_on.png";}
+            PropertyChanges { target: rectangleLeft.scadaItem.scadaPumpPool; source: "qrc:/resources/scada/pump_on.png";}
+            PropertyChanges { target: rectangleLeft.scadaItem.scadaPumpHeatEx; source: "qrc:/resources/scada/pump_on.png";}
+            PropertyChanges { target: rectangleLeft.scadaItem.scadaPumpFloor; source: "qrc:/resources/scada/pump_on.png";}
         },
         State{
             name:"cold_series"
@@ -228,6 +254,13 @@ Item  {
             PropertyChanges { target: pool_icon; opacity: 0.3;  }
             PropertyChanges { target: floor_icon; opacity: 0.3;  }
             PropertyChanges { target: knob_background; color: "blue"; opacity: 1;}
+            PropertyChanges { target: thermostat_floor; enabled: true;}
+            PropertyChanges { target: rectangleLeft.scadaItem.scadaImage; source: "qrc:/resources/scada/scada_cold_series.png";}
+            PropertyChanges { target: rectangleLeft.scadaItem.scadavk2; source: "qrc:/resources/scada/valve_3_on.png";}
+            PropertyChanges { target: rectangleLeft.scadaItem.scadavk4; source: "qrc:/resources/scada/valve_3_on.png";}
+            PropertyChanges { target: rectangleLeft.scadaItem.scadaPumpPool; source: "qrc:/resources/scada/pump_on.png";}
+            PropertyChanges { target: rectangleLeft.scadaItem.scadaPumpHeatEx; source: "qrc:/resources/scada/pump_on.png";}
+            PropertyChanges { target: rectangleLeft.scadaItem.scadaPumpFloor; source: "qrc:/resources/scada/pump_on.png";}
         },
         State{
             name:"cold_paralell"
@@ -236,7 +269,13 @@ Item  {
             PropertyChanges { target: pool_icon; opacity: 0.3;  }
             PropertyChanges { target: floor_icon; opacity: 0.3;  }
             PropertyChanges { target: knob_background; color: "blue"; opacity: 1;}
-
+            PropertyChanges { target: thermostat_floor; enabled: true;}
+            PropertyChanges { target: rectangleLeft.scadaItem.scadaImage; source: "qrc:/resources/scada/scada_cold_paralell.png";}
+            PropertyChanges { target: rectangleLeft.scadaItem.scadavk2; source: "qrc:/resources/scada/valve_3_on.png";}
+            PropertyChanges { target: rectangleLeft.scadaItem.scadavk3; source: "qrc:/resources/scada/valve_vk3_on.png";}
+            PropertyChanges { target: rectangleLeft.scadaItem.scadaPumpPool; source: "qrc:/resources/scada/pump_on.png";}
+            PropertyChanges { target: rectangleLeft.scadaItem.scadaPumpHeatEx; source: "qrc:/resources/scada/pump_on.png";}
+            PropertyChanges { target: rectangleLeft.scadaItem.scadaPumpFloor; source: "qrc:/resources/scada/pump_on.png";}
         },
         State{
             name:""
@@ -246,6 +285,8 @@ Item  {
 
     transitions: [
         Transition {
+            PropertyAnimation { property: "text"; easing.type: Easing.InOutQuad; duration: 0 }
+            ColorAnimation { from: "#c0c0c0"; duration: 1000 }
             // On state change
             ScriptAction {
                 script: console.log("Current State: ",dial_mode.state);

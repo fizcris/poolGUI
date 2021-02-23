@@ -1,5 +1,19 @@
 <RCC>
     <qresource prefix="/">
-        <file>resources/scada/scada_full.png</file>
+        <file>resources/scada/scada_base.png</file>
+        <file>resources/scada/scada_cold_paralell.png</file>
+        <file>resources/scada/scada_cold_series.png</file>
+        <file>resources/scada/scada_hot_floor.png</file>
+        <file>resources/scada/scada_hot_paralell.png</file>
+        <file>resources/scada/scada_hot_pool.png</file>
+        <file>resources/scada/scada_hot_series.png</file>
+        <file>resources/scada/valve_3_on.png</file>
+        <file>resources/scada/valve_3_base.png</file>
+        <file>resources/scada/valve_vk1_off.png</file>
+        <file>resources/scada/valve_vk1_on.png</file>
+        <file>resources/scada/valve_vk3_off.png</file>
+        <file>resources/scada/valve_vk3_on.png</file>
+        <file>resources/scada/pump_base.png</file>
+        <file>resources/scada/pump_on.png</file>
     </qresource>
 </RCC>

@@ -4,6 +4,7 @@ import QtQml.Models 2.3
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import QtGraphicalEffects 1.0
+import QtMultimedia 5.12
 
 
 
@@ -16,12 +17,12 @@ Window {
     visibility:  "FullScreen"
 
 
-//    AnimatedImage {
-//        id: animation_background
-//        source: "qrc:/resources/gifs/animation_right.gif"
-//        width: parent.width
-//        height: parent.height
-//    }
+    //    AnimatedImage {
+    //        id: animation_background
+    //        source: "qrc:/resources/gifs/animation_right.gif"
+    //        width: parent.width
+    //        height: parent.height
+    //    }
 
     RectangleTop {
         id: rectangleTop
@@ -59,14 +60,25 @@ Window {
 
     // Delete cursor
     MouseArea {
-        id: allScreen
+        id: allScreenActive
         anchors.fill: parent
-        enabled: false
         cursorShape: Qt.BlankCursor
+        enabled: true
+        propagateComposedEvents: true
+        onClicked: mouse.accepted = false;
+        onPressed: {playSound.play(); mouse.accepted = false;}
+        onReleased: mouse.accepted = false;
+        onDoubleClicked: mouse.accepted = false;
+        onPositionChanged: mouse.accepted = false;
+        onPressAndHold: mouse.accepted = false;
+
     }
+
+
     // TODO Implement animation on tap
-    TapHandler {
-        onTapped: console.log("Add sound")
+    SoundEffect {
+        id: playSound
+        source: "qrc:/resources/sounds/tap_sound.wav"
     }
 }
 

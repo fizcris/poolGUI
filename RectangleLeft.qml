@@ -6,6 +6,7 @@ import QtQuick.Layouts 1.12
 import QtGraphicalEffects 1.0
 
 Rectangle {
+    property alias scadaItem: scadaItem
     id: rectangleLeft_priv
     color: "transparent"
 
@@ -16,16 +17,8 @@ Rectangle {
         height: parent.height
         opacity: 0.4
     }
-    Image {
-        id: scada_full_image
-        width: parent.width
-        height: parent.height
-        anchors {
-            verticalCenter: parent.verticalCenter
-            horizontalCenter: parent.horizontalCenter
-        }
-        source: "qrc:/resources/scada/scada_full.png"
-        visible: true
+    Scada {
+        id: scadaItem
     }
     Text {
         id: text_designed_by
@@ -41,7 +34,8 @@ Rectangle {
         wrapMode: Text.WrapAnywhere
         maximumLineCount: 2
         font.family: "Courier"
-        color: "black"
+        font.bold: true
+        color: "gray"
         font.pointSize: 28
     }
     

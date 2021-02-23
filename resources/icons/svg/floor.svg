@@ -10,15 +10,17 @@
    version="1.1"
    x="0px"
    y="0px"
-   viewBox="0 0 1000 1000"
+   viewBox="0 0 200 180"
    enable-background="new 0 0 1000 1000"
    xml:space="preserve"
    id="svg14"
    sodipodi:docname="floor.svg"
    inkscape:version="1.0.2-2 (e86c870879, 2021-01-15)"
-   inkscape:export-filename="C:\Users\user\Desktop\floor.png"
+   inkscape:export-filename="C:\Users\user\Desktop\icon_floor.png"
    inkscape:export-xdpi="96"
-   inkscape:export-ydpi="96"><defs
+   inkscape:export-ydpi="96"
+   width="200"
+   height="180"><defs
    id="defs18" /><sodipodi:namedview
    pagecolor="#ffffff"
    bordercolor="#666666"
@@ -32,9 +34,9 @@
    inkscape:window-height="1001"
    id="namedview16"
    showgrid="false"
-   inkscape:zoom="0.29344931"
-   inkscape:cx="1112.2843"
-   inkscape:cy="343.36654"
+   inkscape:zoom="2.3475945"
+   inkscape:cx="80.497076"
+   inkscape:cy="113.171"
    inkscape:window-x="-9"
    inkscape:window-y="-9"
    inkscape:window-maximized="1"
@@ -43,9 +45,10 @@
 <metadata
    id="metadata2"> Svg Vector Icons : http://www.onlinewebfonts.com/icon <rdf:RDF><cc:Work
      rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
-       rdf:resource="http://purl.org/dc/dcmitype/StillImage" /></cc:Work></rdf:RDF></metadata>
+       rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata>
 <g
-   id="g867"><path
+   id="g867"
+   transform="matrix(0.20067049,0,0,0.20067049,-0.03039213,-11.327538)"><path
      d="m 963.7,569.1 c -9,-9.5 -17.5,-18.5 -25.5,-26.8 4.1,-10.9 9.4,-21 11.7,-31.8 4.8,-22 -2.9,-41.3 -18.6,-56.4 -13.2,-12.7 -30.8,-16 -48.7,-16.1 -49,-0.1 -97.9,0 -146.9,0 -205,0 -410,0 -615.1,0 -29.9,0 -57.4,-8.1 -79.5,-27.9 -10.5,-9.4 -19.2,-22.8 -24,-36 -14.3,-39.9 -7,-77.7 21.1,-109 11.1,-12.3 26.6,-23.1 45.1,-25 19.2,-2 38.4,-4.8 57.6,-4.8 245.6,-0.3 491.2,0.2 736.7,-1 18.6,-0.1 39.6,-7.6 54.9,-18.3 16.4,-11.4 21,-32.6 17.5,-53.5 -6,-36.2 -31,-52.8 -66.9,-52.9 -164.1,-0.6 -328.2,0 -492.3,0.2 -118.6,0.2 -237.3,0.2 -356.1,0.2 -7.9,0 -15.9,0 -24.4,0 0,-13.2 0,-25.4 0,-39 5.2,0 9.8,0 14.4,0 284.3,0 568.6,0.1 853,-0.1 30.2,0 58.6,6.7 80.9,27.2 15.2,13.9 24.8,32.3 29.1,53.7 7.2,35.6 -2.6,67 -26,92 -21,22.5 -50.8,30.4 -81.8,30.4 -131.2,0 -262.4,0 -393.6,0 -121.7,0 -243.4,-0.1 -365.1,0.1 -15.6,0 -30.7,2.2 -45,10.6 -19,11.2 -29.7,40.7 -26.2,60.8 5.6,32.8 28.7,50.3 60.3,52.8 4.4,0.3 8.8,0.2 13.1,0.2 251.1,0 502.1,0 753.2,0 30.4,0 59.3,6.5 82,27.3 16.1,14.8 26.1,34.3 29.7,57 5.1,32.3 -3.7,60.1 -24.6,86.1 z"
      id="path4"
      style="fill:#999999;fill-opacity:1;stroke:none" /><path

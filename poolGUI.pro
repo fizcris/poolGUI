@@ -20,7 +20,8 @@ RESOURCES += qml.qrc \
     gifs.qrc \
     icons.qrc \
     images.qrc \
-    scada.qrc
+    scada.qrc \
+    sounds.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =

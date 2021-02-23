@@ -25,27 +25,28 @@ import QtGraphicalEffects 1.0
 Item {
     id: thermostat_comp
     property alias isEnabled:  thermostat_comp.enabled
+    property alias displayText: text_display.text
 
-    readonly property int roomViewTempWidth: 15 + 42
-    readonly property int roomViewTempHeight: 2 + 52
-
-    readonly property int wheelTempUnitSize: 16
-    readonly property int wheelTempTextSize: 48
+    //Size of the dial for digits
+    readonly property int roomViewTempWidth: 150
+    readonly property int roomViewTempHeight: 120
+    //Size of the digits
+    readonly property int wheelTempTextSize: 120
+    //Size of the  units
+    readonly property int wheelTempUnitSize: 32
     readonly property string temperatureSymbol: "°C"
-
+    //Vertical offset for digits
     readonly property int tempControlOffset: 13
-
+    // Colors
     readonly property color blue: "#3c94eb";
     readonly property color greyMedium3: "#c4c9cc";
-
-
+    // Temperatures
     property int currentTemp: 20
     property int prevTemp: 19
-    property int maxTemp: 50
-    property int minTemp: 5
-
+    property int maxTemp: 40
+    property int minTemp: 10
+    //Slider properties
     property int smallestAngle : 25;
-
     readonly property real wheelSize: 155
     readonly property int thermoHandleSize: 100
 
@@ -76,6 +77,7 @@ Item {
         prevTemp = currentTemp
     }
     Item {
+        id: temp_dial
         width: wheelImg.width
         height: width
         anchors.horizontalCenter: parent.horizontalCenter
@@ -106,18 +108,19 @@ Item {
                 value: thermostat_comp.currentTemp % 10
             }
         }
-
         Image {
             id: digitMaskTop
             anchors.top: thermoText.top
             anchors.horizontalCenter: parent.horizontalCenter
             source: "qrc:/resources/icons/digitMaskTop.png"
+            visible: false
         }
         Image {
             id: digitMaskBottom
             anchors.bottom: thermoText.bottom
             anchors.horizontalCenter: parent.horizontalCenter
             source: "qrc:/resources/icons/digitMaskBottom.png"
+            visible: false
         }
         Text {
             visible: thermostat_comp.enabled
@@ -190,9 +193,11 @@ Item {
             id: thermoHandle
             visible: thermostat_comp.enabled
             z: 10
+            //scale: 2
             source: "qrc:/resources/icons/inner-circle.png"
             property real angle: (90 + thermostat_comp.smallestAngle + (thermostat_comp.currentTemp - thermostat_comp.minTemp)/(thermostat_comp.maxTemp-thermostat_comp.minTemp)  * (360-2*thermostat_comp.smallestAngle) )
                                  * 2 * Math.PI / 360
+
             x : parent.width/2 - width/2 + thermostat_comp.wheelSize * Math.cos(angle)
             y : parent.height/2 - height/2 + thermostat_comp.wheelSize * Math.sin(angle)
 
@@ -219,9 +224,9 @@ Item {
                     angle = (360 - angle);
                     while (angle > 360)
                         angle-=360;
-                    var temperature = thermostat_comp.minTemp + (angle-thermostat_comp.smallestAngle) * (thermostat_comp.maxTemp-root.minTemp) / (360-2*thermostat_comp.smallestAngle);
-
-                    thermostat_comp.setTemperatureWithoutAnimation(temperature);
+                    var temperature = thermostat_comp.minTemp + (angle-thermostat_comp.smallestAngle) * (thermostat_comp.maxTemp-thermostat_comp.minTemp) / (360-2*thermostat_comp.smallestAngle);
+                    //console.log(temperature)
+                   thermostat_comp.setTemperatureWithoutAnimation(temperature);
                 }
 
                 Image {
@@ -234,13 +239,14 @@ Item {
 
     }
     Text{
+        id: text_display
     height: 40
-    width: parent.width
-    anchors.horizontalCenter: parent.horizontalCenter
+    //width: parent.width //Better way to define a non fixed widht?
+    anchors.horizontalCenter: temp_dial.horizontalCenter
     anchors.bottom: parent.bottom
-    anchors.bottomMargin: 100
+    anchors.bottomMargin: 115
     //anchors.top: thermostat_comp.bottom
-    text: qsTr("       Thermostat")
+    text: qsTr("Thermostat")
     color: "white"
     font.pixelSize: 40
     }

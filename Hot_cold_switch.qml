@@ -115,7 +115,7 @@ Item {
             PropertyChanges { target: cold_icon_color; visible: false }
             PropertyChanges { target: hot_icon_color; visible: true }
             //PropertyChanges { target: cold_hot_switch.indicator.childrenRect; color: "red" }
-            PropertyChanges { target: dial_mode; dialValue: 2 }
+            PropertyChanges { target: dial_mode; dialValue: 1 }
 
         },
         State {

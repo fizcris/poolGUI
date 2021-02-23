@@ -10,5 +10,6 @@
         <file>AnimatedDigit.qml</file>
         <file>Theme.qml</file>
         <file>ColorStyle.qml</file>
+        <file>Scada.qml</file>
     </qresource>
 </RCC>

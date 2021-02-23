@@ -61,8 +61,9 @@ Rectangle {
             top: dial_mode.bottom
             left: parent.left
         }
-        enabled: true
+        enabled: false
         scale: 1.15
+        displayText: qsTr("Piscina")
     }
 
     Thermostat {
@@ -75,6 +76,7 @@ Rectangle {
         }
         enabled: false
         scale: 1.15
+        displayText: qsTr("Ambiente")
 
     }
 }

@@ -26,7 +26,6 @@ Rectangle {
 //        width: parent.width
 //        height: parent.height
 //    }
-    
     Text {
         id: time
         //anchors.centerIn: parent
@@ -37,7 +36,6 @@ Rectangle {
         anchors.leftMargin: 50
         anchors.verticalCenter: parent.verticalCenter
     }
-    
     Text {
         id: date
         //anchors.centerIn: parent
@@ -48,7 +46,6 @@ Rectangle {
         anchors.left: time.right
         anchors.leftMargin: 150
     }
-
     Switch {
         id: on_off_switch
         //width: 120
@@ -58,13 +55,11 @@ Rectangle {
 
         //Update Dial_mode state
         onCheckedChanged: {rectangleRight.dialMode.setState()}
-
         anchors {
             verticalCenter: parent.verticalCenter
             right: parent.right
             rightMargin: 420
         }
-
         contentItem: Text {
             rightPadding: on_off_switch.indicator.width + on_off_switch.spacing
             text: on_off_switch.checked  ? qsTr("ON") : qsTr("OFF")
@@ -108,17 +103,16 @@ Rectangle {
         }
         source: "qrc:/resources/icons/icon_usb.png"
         scale: 0.2
-        visible: false
+        visible: true
+
+        ColorOverlay {
+            id: usb_icon_color
+            anchors.fill: parent
+            source: parent
+            color: "#228a08"  //green
+        }
     }
     
-    ColorOverlay {
-        id: usb_icon_color
-        anchors.fill: usb_icon
-        source: usb_icon
-        //color: "#ff0000"  // red
-        //color: "#d98123"  //orange
-        color: "#228a08"  //green
-        scale: usb_icon.scale
-    }
+
     
 }
