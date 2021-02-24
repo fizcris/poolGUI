@@ -33,14 +33,6 @@ Rectangle {
     //    }
     Hot_cold_switch {
         id: hc_switch
-        implicitWidth: 120
-        implicitHeight: 56
-        anchors {
-            top: parent.top
-            topMargin: 50
-            left: parent.left
-            leftMargin: 250
-        }
     }
     Dial_mode {
        id: dial_mode
@@ -48,7 +40,7 @@ Rectangle {
         height: 380
         anchors {
             top: hc_switch.bottom
-            topMargin: 20
+            topMargin: 0
             horizontalCenter: parent.horizontalCenter
         }
     }

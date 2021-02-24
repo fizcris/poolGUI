@@ -244,7 +244,7 @@ Item {
     //width: parent.width //Better way to define a non fixed widht?
     anchors.horizontalCenter: temp_dial.horizontalCenter
     anchors.bottom: parent.bottom
-    anchors.bottomMargin: 115
+    anchors.bottomMargin: 50
     //anchors.top: thermostat_comp.bottom
     text: qsTr("Thermostat")
     color: "white"
