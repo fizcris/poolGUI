@@ -6,32 +6,60 @@ import QtQuick.Layouts 1.12
 import QtGraphicalEffects 1.0
 
 Rectangle {
+    id: rectangleTop_priv
+
     property alias switchOnOff: on_off_switch
 
-    id: rectangleTop_priv
+    property string hours
+    property string minutes
+    property string seconds
+    property string day
+    property string month
+    property string year
+
+    property bool night: false
+
     color: "transparent"
     opacity: 1
 
     Rectangle {
-    id: background
-    width: parent.width
-    height: parent.height
-    color: "#3FBFBF"
-    opacity: 0.3
+        id: background
+        width: parent.width
+        height: parent.height
+        color: "#3FBFBF"
+        opacity: 0.3
     }
 
-//    AnimatedImage {
-//        id: animation_top
-//        source: "qrc:/resources/gifs/animation_top.giff"
-//        width: parent.width
-//        height: parent.height
-//    }
+    //    AnimatedImage {
+    //        id: animation_top
+    //        source: "qrc:/resources/gifs/animation_top.giff"
+    //        width: parent.width
+    //        height: parent.height
+    //    }
+    // Function to update hour and date
+    function timeChanged() {
+        var date = new Date;
+        hours = ((date.getUTCHours() +1)>=10) ? (date.getUTCHours()+1) : '0' + (date.getUTCHours()+1);
+        night = ( (date.getUTCHours() +1) < 7 || (date.getUTCHours() +1) > 19 )
+        minutes = (date.getUTCMinutes()>=10 ? date.getUTCMinutes() : '0' + date.getUTCMinutes());
+        seconds = (date.getUTCSeconds()>=10 ? date.getUTCSeconds() : '0' + date.getUTCSeconds());
+        day = (date.getDate()>=10 ? date.getDate() : '0' + date.getDate());
+        month = ((date.getMonth()+1)>=10) ? (date.getMonth()+1) : '0' + (date.getMonth()+1);
+        year = date.getUTCFullYear()
+
+    }
+    // Timmer to update hour and date
+    Timer {
+        interval: 100; running: true; repeat: true;
+        onTriggered: rectangleTop_priv.timeChanged()
+    }
     Text {
         id: time
         //anchors.centerIn: parent
-        text: qsTr("22:45")
+        text: qsTr(rectangleTop_priv.hours + ":" + rectangleTop_priv.minutes + ":" + rectangleTop_priv.seconds )
         color: "#000000"
         font.pointSize: 50
+        font.bold: true
         anchors.left: parent.left
         anchors.leftMargin: 50
         anchors.verticalCenter: parent.verticalCenter
@@ -39,7 +67,7 @@ Rectangle {
     Text {
         id: date
         //anchors.centerIn: parent
-        text: qsTr("22 - 11 - 1992")
+        text: qsTr(rectangleTop_priv.day + " - " + rectangleTop_priv.month + " - "+ rectangleTop_priv.year )
         color: "#000000"
         font.pointSize: 50
         anchors.verticalCenter: parent.verticalCenter
@@ -90,8 +118,6 @@ Rectangle {
             }
         }
     }
-    
-    
     Image {
         id: usb_icon
         x: 1613
@@ -112,7 +138,5 @@ Rectangle {
             color: "#228a08"  //green
         }
     }
-    
 
-    
 }

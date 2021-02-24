@@ -38,13 +38,6 @@ Window {
 
     RectangleLeft {
         id: rectangleLeft
-        width: root.width * 9/16
-        height: root.height - rectangleTop.height
-        anchors {
-            left: root.left
-            top: rectangleTop.top
-            topMargin: rectangleTop.height
-        }
     }
 
     RectangleRight {

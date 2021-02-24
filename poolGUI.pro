@@ -35,3 +35,5 @@ else: unix:!android: target.path = /home/pi/$${TARGET}
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES +=
+
+HEADERS +=

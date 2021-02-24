@@ -5,9 +5,17 @@ import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import QtGraphicalEffects 1.0
 
-Rectangle {
+Rectangle {    
     property alias scadaItem: scadaItem
     id: rectangleLeft_priv
+
+    width: root.width * 9/16
+    height: root.height - rectangleTop.height
+    anchors {
+        left: root.left
+        top: rectangleTop.top
+        topMargin: rectangleTop.height
+    }
     color: "transparent"
 
     Rectangle {
@@ -15,7 +23,7 @@ Rectangle {
         color: "green"
         width: parent.width
         height: parent.height
-        opacity: 0.4
+        opacity: 0.2
     }
     Scada {
         id: scadaItem
