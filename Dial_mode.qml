@@ -286,6 +286,7 @@ Item  {
     transitions: [
         Transition {
             PropertyAnimation { property: "text"; easing.type: Easing.InOutQuad; duration: 0 }
+
             ColorAnimation { from: "#c0c0c0"; duration: 1000 }
             // On state change
             ScriptAction {

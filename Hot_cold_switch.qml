@@ -20,10 +20,18 @@ Item {
     //width: 320
     //height: 80
 
+//    Grid{
+//        x:0;y:0
+//        width: parent.width
+//        height: parent.height
+//        columns: 3; rows: 1
+//        spacing: 0
+//    }
+
     Image {
         id: hot_icon
-        width: 60
-        height: 60
+        width: 80
+        height: 80
         anchors {
             left: parent.left
             leftMargin: 5
@@ -37,19 +45,20 @@ Item {
             source: parent
             color: "orange"
         }
+        MouseArea {
+        anchors.fill: parent
+
+
+        }
     }
     Switch {
         id: cold_hot_switch
         checked: false
         scale: 2.5
         enabled: rectangleTop.switchOnOff.checked
-
         onCheckedChanged: {
             toggleState();
-            console.log(cold_hot_switch.state)
         }
-
-
         anchors {
             left: hot_icon.right
             leftMargin: 60
@@ -65,7 +74,6 @@ Item {
         //elide: Text.ElideRight
         //verticalAlignment: Text.AlignVCenter
         //}
-
         indicator: Rectangle {
             implicitWidth: 48
             implicitHeight: 26
@@ -86,8 +94,8 @@ Item {
                 //border.color: cold_hot_switch.checked ? (cold_hot_switch.down ? "#17a81a" : "#21be2b") : "#999999"
             }
         }
-    }
 
+    }
     Image {
         id: cold_icon
         width: 80

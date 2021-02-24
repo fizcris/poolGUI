@@ -46,8 +46,8 @@ Item {
         source: "qrc:/resources/scada/valve_3_base.png"
         visible: true
 
-    }
 
+    }
     Image {
         id: scada_vk_3
         x: 430
@@ -115,71 +115,70 @@ Item {
         font.pointSize: 40
         color: "gray"
     }
+
     Text {
         id: temp_heater
-        x: 220
-        y: 390
+        x: 195
+        y: 388
         text: qsTr("34.5" + "°C")
         font.family: "Roboto"
         font.bold: false
-        font.pointSize: 25
+        font.pointSize: 30
         color: "black"
     }
     Text {
         id: temp_pool_imp
-        x: 680
-        y: 390
+        x: 662
+        y: 388
         text: qsTr("34.5" + "°C")
         font.family: "Roboto"
         font.bold: false
-        font.pointSize: 25
+        font.pointSize: 30
         color: "black"
     }
-
     Text {
         id: temp_series
-        x: 425
-        y: 585
+        x: 368
+        y: 583
         text: qsTr("34.5" + "°C")
         font.family: "Roboto"
         font.bold: false
-        font.pointSize: 25
+        font.pointSize: 30
         color: "black"
-    }
 
+    }
     Text {
         id: temp_floor_imp
-        x: 680
-        y: 625
+        x: 662
+        y: 612
         text: qsTr("34.5" + "°C")
         font.family: "Roboto"
         font.bold: false
-        font.pointSize: 25
+        font.pointSize: 30
         color: "black"
-    }
 
+    }
     Text {
         id: temp_ret
-        x: 420
-        y: 880
+        x: 367
+        y: 870
         text: qsTr("34.5" + "°C")
         font.family: "Roboto"
         font.bold: false
-        font.pointSize: 25
+        font.pointSize: 30
         color: "black"
-    }
 
+    }
     Text {
         id: pressure
-        x: 600
-        y: 880
+        x: 662
+        y: 870
         text: qsTr("2.1" + "bar")
         font.family: "Roboto"
         font.bold: false
-        font.pointSize: 25
+        font.pointSize: 30
         color: "black"
     }
-
 
 }
 
