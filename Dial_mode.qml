@@ -273,6 +273,7 @@ Item  {
             PropertyChanges { target: rectangleLeft.scadaItem.scadaImage; source: "qrc:/resources/scada/scada_cold_paralell.png";}
             PropertyChanges { target: rectangleLeft.scadaItem.scadavk2; source: "qrc:/resources/scada/valve_3_on.png";}
             PropertyChanges { target: rectangleLeft.scadaItem.scadavk3; source: "qrc:/resources/scada/valve_vk3_on.png";}
+            PropertyChanges { target: rectangleLeft.scadaItem.scadavk4; source: "qrc:/resources/scada/valve_3_on.png";}
             PropertyChanges { target: rectangleLeft.scadaItem.scadaPumpPool; source: "qrc:/resources/scada/pump_on.png";}
             PropertyChanges { target: rectangleLeft.scadaItem.scadaPumpHeatEx; source: "qrc:/resources/scada/pump_on.png";}
             PropertyChanges { target: rectangleLeft.scadaItem.scadaPumpFloor; source: "qrc:/resources/scada/pump_on.png";}

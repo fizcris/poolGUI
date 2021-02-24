@@ -10,12 +10,12 @@ Rectangle {
 
     property alias switchOnOff: on_off_switch
 
-    property string hours
-    property string minutes
-    property string seconds
-    property string day
-    property string month
-    property string year
+    property string hours: "00"
+    property string minutes: "00"
+    property string seconds: "00"
+    property string day: "00"
+    property string month: "00"
+    property string year: "0000"
 
     property bool night: false
 
@@ -50,7 +50,7 @@ Rectangle {
     }
     // Timmer to update hour and date
     Timer {
-        interval: 100; running: true; repeat: true;
+        interval: 500; running: true; repeat: true;
         onTriggered: rectangleTop_priv.timeChanged()
     }
     Text {
