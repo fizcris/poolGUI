@@ -31,7 +31,11 @@ Switch {
     }
 
     //Update Dial_mode state
-    onCheckedChanged: {rectangleRight.dialMode.setState(); toggleState(); }
+    onCheckedChanged: {
+        rectangleRight.dialMode.setState();
+        toggleState();
+        if (!on_off_switch.checked) {serial.sendStateStop(1);}
+    }
     anchors {
         verticalCenter: parent.verticalCenter
         right: parent.right

@@ -57,6 +57,8 @@ Rectangle {
         enabled: false
         scale: 1.15
         displayText: qsTr("Piscina")
+
+        onDesiredTempChanged: {serial.sendTemperatureFloor(desiredTemp)}
     }
 
     Thermostat {
@@ -71,5 +73,6 @@ Rectangle {
         scale: 1.15
         displayText: qsTr("Ambiente")
 
+       onDesiredTempChanged: {serial.sendTemperatureFloor(desiredTemp)}
     }
 }

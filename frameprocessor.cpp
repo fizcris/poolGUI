@@ -1,4 +1,5 @@
 #include "frameprocessor.h"
+#include <QDebug>
 
 FrameProcessor::FrameProcessor(QQueue<Frame*> *outFrameQueue, QObject *parent) : QObject(parent)
 {
@@ -95,3 +96,59 @@ void FrameProcessor::FrameIncoming(Frame *frame)
 //    Frame *frameToSend = new Frame(CMD_ADC_ENABLE, enable);
 //    m_outFrameQueue->enqueue(frameToSend);
 //}
+
+void FrameProcessor::sendStateStop(quint8 enable)
+{
+    Frame *frameToSend = new Frame(CMD_STATE_STOP, enable);
+    m_outFrameQueue->enqueue(frameToSend);
+}
+
+void FrameProcessor::sendStatePool(quint8 enable)
+{
+    Frame *frameToSend = new Frame(CMD_STATE_POOL, enable);
+    m_outFrameQueue->enqueue(frameToSend);
+}
+
+void FrameProcessor::sendStateFloor(quint8 enable)
+{
+    Frame *frameToSend = new Frame(CMD_STATE_FLOOR, enable);
+    m_outFrameQueue->enqueue(frameToSend);
+}
+void FrameProcessor::sendStateHotSeries(quint8 enable)
+{
+    Frame *frameToSend = new Frame(CMD_STATE_HOT_SERIES, enable);
+    m_outFrameQueue->enqueue(frameToSend);
+}
+void FrameProcessor::sendStateHotParalell(quint8 enable)
+{
+    Frame *frameToSend = new Frame(CMD_STATE_HOT_PARALELL, enable);
+    m_outFrameQueue->enqueue(frameToSend);
+}
+void FrameProcessor::sendStateColdSeries(quint8 enable)
+{
+    Frame *frameToSend = new Frame(CMD_STATE_COLD_SEERIES, enable);
+    m_outFrameQueue->enqueue(frameToSend);
+}
+void FrameProcessor::sendStateColdParalell(quint8 enable)
+{
+    Frame *frameToSend = new Frame(CMD_STATE_COLD_PARALELL, enable);
+    m_outFrameQueue->enqueue(frameToSend);
+}
+void FrameProcessor::sendStateEmergence(quint8 enable)
+{
+    Frame *frameToSend = new Frame(CMD_STATE_EMERGENCE, enable);
+    m_outFrameQueue->enqueue(frameToSend);
+}
+
+void FrameProcessor::sendTemperaturePool(quint16 temp)
+{
+    Frame *frameToSend = new Frame(CMD_TEMP_POOL, temp);
+    m_outFrameQueue->enqueue(frameToSend);
+}
+
+void FrameProcessor::sendTemperatureFloor(quint16 temp)
+{
+    Frame *frameToSend = new Frame(CMD_TEMP_FLOOR, temp);
+    //qDebug() << "Temp to send: " << temp;
+    m_outFrameQueue->enqueue(frameToSend);
+}

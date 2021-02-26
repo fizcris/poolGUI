@@ -26,6 +26,8 @@ Item {
     id: thermostat_comp
     property alias isEnabled:  thermostat_comp.enabled
     property alias displayText: text_display.text
+    property int desiredTemp: currentTemp*10
+
 
     //Size of the dial for digits
     readonly property int roomViewTempWidth: 150
@@ -52,15 +54,10 @@ Item {
 
 
     onVisibleChanged: {
-        //setTemperatureWithoutAnimation(currentRoom.temperature)
-        //powerBtn.checked = currentRoom.power
-        //autoBtn.checked = currentRoom.auto_
-        //dryerBtn.checked = currentRoom.dryer
-        //ecoBtn.checked = currentRoom.eco
-        //streamerBtn.checked = currentRoom.streamer
+        setTemperatureWithoutAnimation(currentTemp)
     }
     onCurrentTempChanged: {
-        //currentRoom.temperature = currentTemp
+        desiredTemp = currentTemp*10
     }
     function setTemperature(t : real) {
         _setTemperatureImpl(t, false)

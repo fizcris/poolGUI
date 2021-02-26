@@ -18,6 +18,8 @@ class FrameProcessor : public QObject
     static const quint8 CMD_STATE_COLD_SEERIES = 6;
     static const quint8 CMD_STATE_COLD_PARALELL = 7;
     static const quint8 CMD_STATE_EMERGENCE = 8;
+    static const quint8 CMD_TEMP_POOL = 9;
+    static const quint8 CMD_TEMP_FLOOR = 10;
     // MCU -> Rpi
     static const quint8 TEMP_POOL = 100;
     static const quint8 TEMP_FLOOR = 101;
@@ -67,6 +69,18 @@ signals:
 
 public slots:
     void FrameIncoming(Frame *frame);
+    void sendStateStop(quint8 enable);
+    void sendStatePool(quint8 enable);
+    //void sendStatePool(quint8 enable,quint8 tempPool);
+    void sendStateFloor(quint8 enable);
+    void sendStateHotSeries(quint8 enable);
+    void sendStateHotParalell(quint8 enable);
+    void sendStateColdSeries(quint8 enable);
+    void sendStateColdParalell(quint8 enable);
+    void sendStateEmergence(quint8 enable);
+
+    void sendTemperaturePool(quint16 temp);
+    void sendTemperatureFloor(quint16 temp);
 
     //void setPwm(quint8 color, quint8 value);
     //void enableAdc(quint8 enable);

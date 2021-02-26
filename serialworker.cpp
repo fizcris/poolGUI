@@ -276,6 +276,6 @@ void SerialWorker::sendData(Frame *frame)
         } else
             outBuffer[dataToSend++] = value;
     }
-
+    qDebug() << "Frame sent: " << outBuffer;
     m_Serial->write(outBuffer);
 }

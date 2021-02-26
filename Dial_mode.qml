@@ -31,6 +31,16 @@ Item  {
         else if (dial_dial_mode.value === 3 && hc_switch.checked)
             dial_mode_priv.state = "cold_paralell";
     }
+
+    onStateChanged: {
+    if(dial_mode_priv.state == "hot_pool"  ){serial.sendStatePool(1)};
+    if(dial_mode_priv.state == "hot_floor"  ){serial.sendStatePool(1)};
+    if(dial_mode_priv.state == "hot_series"  ){serial.sendStatePool(1)};
+    if(dial_mode_priv.state == "hot_paralell"  ){serial.sendStatePool(1)};
+    if(dial_mode_priv.state == "cold_series"  ){serial.sendStatePool(1)};
+    if(dial_mode_priv.state == "cold_paralell"  ){serial.sendStatePool(1)};
+    }
+
     property int x1: 70
     property int x2: 170
 
