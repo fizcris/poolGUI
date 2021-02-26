@@ -291,7 +291,10 @@ Item  {
             ColorAnimation { from: "#c0c0c0"; duration: 1000 }
             // On state change
             ScriptAction {
-                script: console.log("Current State: ",dial_mode.state);
+                script: {
+                    //serial.setPwm(cmd_PWM_LED_R, value);
+                    console.log("Current State: ",dial_mode.state);
+                }
             }
         }
     ]

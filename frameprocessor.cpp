@@ -51,6 +51,34 @@ void FrameProcessor::FrameIncoming(Frame *frame)
         {
             emit changedInput108(frame->GetUByte());
         } break;
+        case STATE_VK_1:
+        {
+            emit changedInput109(frame->GetUByte());
+        } break;
+        case STATE_VK_2:
+        {
+            emit changedInput110(frame->GetUByte());
+        } break;
+        case STATE_VK_3:
+        {
+            emit changedInput111(frame->GetUByte());
+        } break;
+        case STATE_VK_4:
+        {
+            emit changedInput112(frame->GetUByte());
+        } break;
+        case STATE_PUMP_POOL_IMP:
+        {
+            emit changedInput113(frame->GetUByte());
+        } break;
+        case STATE_PUMP_POOL:
+        {
+            emit changedInput114(frame->GetUByte());
+        } break;
+        case STATE_PUMP_FLOOR:
+        {
+            emit changedInput115(frame->GetUByte());
+        } break;
         }
 
     }
