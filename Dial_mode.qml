@@ -13,9 +13,10 @@ Item  {
     property alias dialValue: dial_dial_mode.value
     //Output
     property alias state: dial_mode_priv.state
+
     // Change state function
     function setState(){
-        if (!rectangleTop.switchOnOff.checked)
+        if (!rectangleTop.onOffSwitch.checked)
             dial_mode_priv.state = "";
         else if (dial_dial_mode.value === 1 && !hc_switch.checked)
             dial_mode_priv.state = "hot_pool";
@@ -66,7 +67,7 @@ Item  {
             }
             TapHandler {
                 id: tapHandlerPool
-                enabled: rectangleTop.switchOnOff.checked && !hc_switch.checked
+                enabled: dial_dial_mode.enabled && !hc_switch.checked
                 onTapped: dial_dial_mode.value = 1
             }
         }
@@ -93,7 +94,7 @@ Item  {
 
             }
             TapHandler {
-                enabled: rectangleTop.switchOnOff.checked
+                enabled: rectangleRight.coldHotSwitch.enabled
                 onTapped: dial_dial_mode.value = 2
             }
         }
@@ -120,7 +121,7 @@ Item  {
                 }
             }
             TapHandler {
-                enabled: rectangleTop.switchOnOff.checked && !hc_switch.checked
+                enabled: dial_dial_mode.enabled  && !hc_switch.checked
                 onTapped: dial_dial_mode.value = 0
             }
         }
@@ -145,7 +146,7 @@ Item  {
                 }
             }
             TapHandler {
-                enabled: rectangleTop.switchOnOff.checked
+                enabled: rectangleRight.coldHotSwitch.enabled
                 onTapped: dial_dial_mode.value = 3
             }
         }
@@ -161,7 +162,7 @@ Item  {
         from: 0
         to: 3
         stepSize:1
-        enabled: rectangleTop.switchOnOff.checked && !hc_switch.checked
+        enabled: rectangleTop.onOffSwitch.enabled && !hc_switch.checked
         wrap: true
         inputMode: Dial.Circular
         snapMode: Dial.SnapAlways

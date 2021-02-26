@@ -11,5 +11,6 @@
         <file>Theme.qml</file>
         <file>ColorStyle.qml</file>
         <file>Scada.qml</file>
+        <file>On_off_switch.qml</file>
     </qresource>
 </RCC>

@@ -10,8 +10,8 @@ Rectangle {
     color: "transparent"
     opacity: 1
 
-    property alias switchOnOff: on_off_switch
     property alias  usbIconColor: usb_icon_color
+    property alias  onOffSwitch: on_off_switch
 
     property string hours: "00"
     property string minutes: "00"
@@ -21,7 +21,6 @@ Rectangle {
     property string year: "0000"
 
     property bool night: false
-
 
     Rectangle {
         id: background
@@ -77,50 +76,10 @@ Rectangle {
         anchors.leftMargin: 150
     }
 
-    Switch {
+    On_off_switch {
         id: on_off_switch
-        //width: 120
-        //height: 56
-        checked: false
-        scale: 2.5
-
-        //Update Dial_mode state
-        onCheckedChanged: {rectangleRight.dialMode.setState()}
-        anchors {
-            verticalCenter: parent.verticalCenter
-            right: parent.right
-            rightMargin: 420
-        }
-        contentItem: Text {
-            rightPadding: on_off_switch.indicator.width + on_off_switch.spacing
-            text: on_off_switch.checked  ? qsTr("ON") : qsTr("OFF")
-            font.family: "Verdana"
-            font.pixelSize: 20
-            opacity: enabled ? 1.0 : 0.3
-            color: on_off_switch.checked  ? "#17a81a" : "red"
-            elide: Text.ElideRight
-            verticalAlignment: Text.AlignVCenter
-        }
-
-        indicator: Rectangle {
-            implicitWidth: 48
-            implicitHeight: 26
-            x: on_off_switch.width - width - on_off_switch.rightPadding
-            y: parent.height / 2 - height / 2
-            radius: 13
-            color: on_off_switch.checked ? "#17a81a" : "red"
-            border.color: on_off_switch.checked ? "#cccccc" : "#cccccc"
-
-            Rectangle {
-                x: on_off_switch.checked ? parent.width - width : 0
-                width: 26
-                height: 26
-                radius: 13
-                color: on_off_switch.down ? "#cccccc" : "#ffffff"
-                border.color: on_off_switch.checked ? (on_off_switch.down ? "#17a81a" : "#21be2b") : "#999999"
-            }
-        }
     }
+
     Image {
         id: usb_icon
         x: 1613
@@ -142,3 +101,4 @@ Rectangle {
         }
     }
 }
+

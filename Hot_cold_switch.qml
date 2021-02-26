@@ -6,16 +6,17 @@ import QtQuick.Layouts 1.12
 import QtGraphicalEffects 1.0
 
 Item {
+
     property alias checked: cold_hot_switch.checked
+    property alias coldHotSwitch: cold_hot_switch
 
     function toggleState() {
-        if (cold_hot_comp.state == "cold")
-            cold_hot_comp.state = "hot";
+        if (state == "cold")
+            state = "hot";
         else
-            cold_hot_comp.state = "cold";
+            state = "cold";
     }
 
-    id: cold_hot_comp
     state: "hot"
     implicitHeight: 120
     implicitWidth: parent.width
@@ -31,7 +32,6 @@ Item {
 
         Rectangle{height: parent.height; width: 200;
             color: "transparent"; clip: true;
-
             Image {
                 id: hot_icon
                 width: sourceSize.width
@@ -50,7 +50,7 @@ Item {
                 }
                 TapHandler {
                     id: tapHandlerHotIcon
-                    enabled: rectangleTop.switchOnOff.checked
+                    enabled: true
                     onTapped: cold_hot_switch.checked = false
                 }
             }
@@ -63,7 +63,7 @@ Item {
                 id: cold_hot_switch
                 checked: false
                 scale: 2.5
-                enabled: rectangleTop.switchOnOff.checked
+                enabled: true
                 onCheckedChanged: {
                     toggleState();
                 }
@@ -125,13 +125,11 @@ Item {
             }
             TapHandler {
                 id: tapHandlerColdtIcon
-                enabled: rectangleTop.switchOnOff.checked
+                enabled:  cold_hot_switch.enabled
                 onTapped: cold_hot_switch.checked = true
             }
         }
     }
-
-
     states: [
         State {
             name: "hot"
@@ -145,11 +143,9 @@ Item {
             name: "cold"
             PropertyChanges { target: cold_icon_color; visible: true }
             PropertyChanges { target: hot_icon_color; visible: false }
-
             PropertyChanges { target: dial_mode; dialValue: 2 }
         }
     ]
-
     transitions: [
         Transition {
             // Update dial state

@@ -9,9 +9,10 @@ Rectangle {
     id: rectangleRight_priv
 
     property alias dialMode: dial_mode
+    property alias coldHotSwitch: hc_switch
 
     color: "transparent"
-    opacity: rectangleTop.switchOnOff.checked ? 1  : 0.3
+    opacity: 0.3
 
     Rectangle {
         id: background
