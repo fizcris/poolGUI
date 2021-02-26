@@ -9,6 +9,7 @@ Switch {
     id: on_off_switch
 
     property alias switchOnOff: on_off_switch
+
     opacity: 1
     //width: 120
     //height: 56
@@ -18,6 +19,8 @@ Switch {
     function setState(value){
         if (value === "ON"){on_off_switch.state = "ON";};
         if (value === "OFF"){on_off_switch.state = "OFF";};
+        if (value === "disabled"){on_off_switch.state = "disabled";};
+        if (value === "enabled"){on_off_switch.state = "enabled";};
     }
 
     function toggleState() {
@@ -53,7 +56,7 @@ Switch {
         radius: 13
         color: on_off_switch.checked ? "#17a81a" : "red"
         border.color: on_off_switch.checked ? "#cccccc" : "#cccccc"
-        
+        opacity: enabled ? 1.0 : 0.3
         Rectangle {
             x: on_off_switch.checked ? parent.width - width : 0
             width: 26
@@ -81,7 +84,18 @@ Switch {
             PropertyChanges { target: rectangleRight.coldHotSwitch; enabled: false}
             PropertyChanges { target: rectangleRight.dialMode; enabled: false}
 
-        }
+        }//,
+//        State {
+//            name: "disabled"
+//            PropertyChanges { target: rectangleRight.coldHotSwitch; enabled: false}
+//            PropertyChanges { target: on_off_switch; state: "OFF" }
+
+//        },
+//        State {
+//            name: "enabled"
+//            PropertyChanges { target: rectangleRight.coldHotSwitch; enabled: true}
+//            PropertyChanges { target: on_off_switch; state: "OFF" }
+//        }
     ]
 }
 
