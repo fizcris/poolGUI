@@ -6,8 +6,6 @@ import QtQuick.Layouts 1.12
 import QtGraphicalEffects 1.0
 import QtMultimedia 5.12
 
-
-
 Window {
     id:root
     visible: true
@@ -15,7 +13,6 @@ Window {
     height: 1080
     color: "#000000"
     visibility:  "FullScreen"
-
 
     //    AnimatedImage {
     //        id: animation_background
@@ -67,13 +64,54 @@ Window {
 
     }
 
-
     // TODO Implement animation on tap
     SoundEffect {
         id: playSound
         source: "qrc:/resources/sounds/tap_sound.wav"
     }
+
+    Connections
+    {
+        target: serial
+        function onChangedInput100(_value){
+            rectangleLeft.scadaItem.tempPool.text = qsTr((_value/10).toFixed(1) + "°C");
+        }
+        function onChangedInput101(_value){
+            rectangleLeft.scadaItem.tempFloor.text = qsTr((_value/10).toFixed(1) + "°C");
+        }
+        function onChangedInput102(_value){
+            rectangleLeft.scadaItem.tempHeater.text = qsTr((_value/10).toFixed(1) + "°C");
+        }
+        function onChangedInput103(_value){
+            rectangleLeft.scadaItem.tempPoolImp.text = qsTr((_value/10).toFixed(1) + "°C");
+        }
+        function onChangedInput104(_value){
+            rectangleLeft.scadaItem.tempFloorImp.text = qsTr((_value/10).toFixed(1) + "°C");
+        }
+        function onChangedInput105(_value){
+            rectangleLeft.scadaItem.tempReturn.text = qsTr((_value/10).toFixed(1) + "°C");
+        }
+        function onChangedInput106(_value){
+            rectangleLeft.scadaItem.tempSreies.text = qsTr((_value/10).toFixed(1) + "°C");
+        }
+        function onChangedInput107(_value){
+            rectangleLeft.scadaItem.pressureReturn.text = qsTr((_value/10).toFixed(1) + "bar");
+        }
+        function onChangedInput108(_value){
+            rectangleLeft.scadaItem.hgFloor.text = qsTr("" + (_value/10).toFixed(1) + "%");
+        }
+
+    }
+
+    Connections
+    { target: serialWorker
+        function onSerialConnected(_value){
+            if(_value){
+                rectangleTop.usbIconColor.color = "green";
+            }else {
+                rectangleTop.usbIconColor.color = "red";
+            }
+        }
+    }
+
 }
-
-
-

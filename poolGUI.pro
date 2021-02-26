@@ -1,4 +1,4 @@
-QT += quick
+QT += quick serialport
 
 CONFIG += c++11
 
@@ -14,7 +14,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-        main.cpp
+        frame.cpp \
+        frameprocessor.cpp \
+        main.cpp \
+        serialworker.cpp
+
 
 RESOURCES += qml.qrc \
     gifs.qrc \
@@ -36,4 +40,7 @@ else: unix:!android: target.path = /home/pi/$${TARGET}
 
 DISTFILES +=
 
-HEADERS +=
+HEADERS += \
+    frame.h \
+    frameprocessor.h \
+    serialworker.h

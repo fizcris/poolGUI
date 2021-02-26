@@ -16,9 +16,18 @@ Item {
     property alias scadavk3: scada_vk_3
     property alias scadavk4: scada_vk_4
     property alias scadaPumpPool: scada_pump_pool
-    property alias scadaPumpHeatEx: scada_pump_heatEx
     property alias scadaPumpFloor: scada_pump_floor
+    property alias scadaPumpHeatEx: scada_pump_heatEx
 
+    property alias tempPool: temp_pool
+    property alias tempFloor: temp_floor
+    property alias tempHeater: temp_heater
+    property alias tempPoolImp: temp_pool_imp
+    property alias tempSreies: temp_series
+    property alias tempFloorImp: temp_floor_imp
+    property alias tempReturn: temp_return
+    property alias pressureReturn: pressure_return
+    property alias hgFloor: hg_floor
 
     Image {
         id: scada_full_image
@@ -86,30 +95,30 @@ Item {
     }
 
     Text {
-        id: pool_temp_actual
+        id: temp_pool
         x: 100
         y: 50
-        text: qsTr("34.5" + "°C")
+        text: qsTr("--.-" + "°C")
         font.family: "Roboto"
         font.bold: true
         font.pointSize: 65
         color: "gray"
     }
     Text {
-        id: floor_temp_actual
+        id: temp_floor
         x: 580
         y: 50
-        text: qsTr("34.5" + "°C")
+        text: qsTr("--.-" + "°C")
         font.family: "Roboto"
         font.bold: true
         font.pointSize: 55
         color: "gray"
     }
     Text {
-        id: floor_hg_actual
+        id: hg_floor
         x: 870
-        anchors.bottom: floor_temp_actual.bottom
-        text: qsTr("34.5" + "%")
+        anchors.bottom: temp_floor.bottom
+        text: qsTr("--.-" + "%")
         font.family: "Roboto"
         font.bold: true
         font.pointSize: 40
@@ -120,7 +129,7 @@ Item {
         id: temp_heater
         x: 195
         y: 388
-        text: qsTr("34.5" + "°C")
+        text: qsTr("--.-" + "°C")
         font.family: "Roboto"
         font.bold: false
         font.pointSize: 30
@@ -130,7 +139,7 @@ Item {
         id: temp_pool_imp
         x: 662
         y: 388
-        text: qsTr("34.5" + "°C")
+        text: qsTr("--.-" + "°C")
         font.family: "Roboto"
         font.bold: false
         font.pointSize: 30
@@ -140,7 +149,7 @@ Item {
         id: temp_series
         x: 368
         y: 583
-        text: qsTr("34.5" + "°C")
+        text: qsTr("--.-" + "°C")
         font.family: "Roboto"
         font.bold: false
         font.pointSize: 30
@@ -151,7 +160,7 @@ Item {
         id: temp_floor_imp
         x: 662
         y: 612
-        text: qsTr("34.5" + "°C")
+        text: qsTr("--.-" + "°C")
         font.family: "Roboto"
         font.bold: false
         font.pointSize: 30
@@ -159,10 +168,10 @@ Item {
 
     }
     Text {
-        id: temp_ret
+        id: temp_return
         x: 367
         y: 870
-        text: qsTr("34.5" + "°C")
+        text: qsTr("--.-" + "°C")
         font.family: "Roboto"
         font.bold: false
         font.pointSize: 30
@@ -170,10 +179,10 @@ Item {
 
     }
     Text {
-        id: pressure
+        id: pressure_return
         x: 662
         y: 870
-        text: qsTr("2.1" + "bar")
+        text: qsTr("-.-" + "bar")
         font.family: "Roboto"
         font.bold: false
         font.pointSize: 30

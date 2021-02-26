@@ -7,8 +7,11 @@ import QtGraphicalEffects 1.0
 
 Rectangle {
     id: rectangleTop_priv
+    color: "transparent"
+    opacity: 1
 
     property alias switchOnOff: on_off_switch
+    property alias  usbIconColor: usb_icon_color
 
     property string hours: "00"
     property string minutes: "00"
@@ -19,8 +22,6 @@ Rectangle {
 
     property bool night: false
 
-    color: "transparent"
-    opacity: 1
 
     Rectangle {
         id: background
@@ -36,6 +37,7 @@ Rectangle {
     //        width: parent.width
     //        height: parent.height
     //    }
+
     // Function to update hour and date
     function timeChanged() {
         var date = new Date;
@@ -74,6 +76,7 @@ Rectangle {
         anchors.left: time.right
         anchors.leftMargin: 150
     }
+
     Switch {
         id: on_off_switch
         //width: 120
@@ -135,8 +138,7 @@ Rectangle {
             id: usb_icon_color
             anchors.fill: parent
             source: parent
-            color: "#228a08"  //green
+            color: "red"
         }
     }
-
 }
