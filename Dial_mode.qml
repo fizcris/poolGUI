@@ -32,13 +32,14 @@ Item  {
             dial_mode_priv.state = "cold_paralell";
     }
 
+
     onStateChanged: {
-    if(dial_mode_priv.state == "hot_pool"  ){serial.sendStatePool(1)};
-    if(dial_mode_priv.state == "hot_floor"  ){serial.sendStatePool(1)};
-    if(dial_mode_priv.state == "hot_series"  ){serial.sendStatePool(1)};
-    if(dial_mode_priv.state == "hot_paralell"  ){serial.sendStatePool(1)};
-    if(dial_mode_priv.state == "cold_series"  ){serial.sendStatePool(1)};
-    if(dial_mode_priv.state == "cold_paralell"  ){serial.sendStatePool(1)};
+    if(dial_mode_priv.state == "hot_pool"  ){serial.sendStatePool(1); serial.sendTemperaturePool(rectangleRight.thermostatPool.desiredTemp); serial.sendTemperatureFloor(rectangleRight.thermostatFloor.desiredTemp)};
+    if(dial_mode_priv.state == "hot_floor"  ){serial.sendStateFloor(1); serial.sendTemperaturePool(rectangleRight.thermostatPool.desiredTemp); serial.sendTemperatureFloor(rectangleRight.thermostatFloor.desiredTemp)};
+    if(dial_mode_priv.state == "hot_series"  ){serial.sendStateHotSeries(1); serial.sendTemperaturePool(rectangleRight.thermostatPool.desiredTemp); serial.sendTemperatureFloor(rectangleRight.thermostatFloor.desiredTemp)};
+    if(dial_mode_priv.state == "hot_paralell"  ){serial.sendStateHotParalell(1); serial.sendTemperaturePool(rectangleRight.thermostatPool.desiredTemp); serial.sendTemperatureFloor(rectangleRight.thermostatFloor.desiredTemp)};
+    if(dial_mode_priv.state == "cold_series"  ){serial.sendStateColdSeries(1); serial.sendTemperaturePool(desiredTemp); serial.sendTemperatureFloor(desiredTemp)};
+    if(dial_mode_priv.state == "cold_paralell"  ){serial.sendStateColdParalell(1); serial.sendTemperaturePool(desiredTemp); serial.sendTemperatureFloor(desiredTemp)};
     }
 
     property int x1: 70
@@ -297,13 +298,12 @@ Item  {
     transitions: [
         Transition {
             PropertyAnimation { property: "text"; easing.type: Easing.InOutQuad; duration: 0 }
-
-            ColorAnimation { from: "#c0c0c0"; duration: 1000 }
+            ColorAnimation { from: "#c0c0c0"; easing.type: Easing.InOutQuad; duration: 1000 }
             // On state change
             ScriptAction {
                 script: {
                     //serial.setPwm(cmd_PWM_LED_R, value);
-                    console.log("Current State: ",dial_mode.state);
+                    //console.log("Current State: ",dial_mode.state);
                 }
             }
         }

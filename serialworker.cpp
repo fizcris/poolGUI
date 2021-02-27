@@ -4,8 +4,6 @@
 #include <QThread>
 #include <QDebug>
 
-
-
 SerialWorker::SerialWorker(QQueue<Frame*> *outFrameQueue, QObject *parent) :
     QObject(parent)
 {
@@ -53,15 +51,15 @@ void SerialWorker::doWork()
     Frame *m_inFrame = nullptr;
     quint8 checksum = 0, xored = 0x00;
     int dataLength = 0;
-    int maxdataLength = 10;
+    int maxdataLength = 50;   // Be carefull if big frames are sent
 
 
 
     // Serial Port Initialization
     m_Serial = new QSerialPort();
 
-    //m_Serial->setPortName("ttyAMA0");
-    m_Serial->setPortName("ttyUSB0");
+    m_Serial->setPortName("ttyS0");
+    //m_Serial->setPortName("ttyUSB0");
     m_Serial->setBaudRate(QSerialPort::Baud115200);
     m_Serial->setDataBits(QSerialPort::Data8);
     m_Serial->setParity(QSerialPort::NoParity);
@@ -99,7 +97,7 @@ void SerialWorker::doWork()
 
         if(!m_outFrameQueue->isEmpty())
         {
-            qDebug() << "Frame empty";
+            //qDebug() << "Frame empty";
             Frame *outFrame = m_outFrameQueue->dequeue();
             sendFrame(outFrame);
             delete outFrame;
@@ -108,7 +106,9 @@ void SerialWorker::doWork()
         {
             if (m_Serial->waitForReadyRead(10))
             {
-                QByteArray receivedData = m_Serial->readAll();
+                QByteArray receivedData;
+                //receivedData.resize(50);
+                receivedData = m_Serial->readAll();
                 //qDebug() << "receivedData" << receivedData;
                 //qDebug() << "receivedData.count" << receivedData.count();
 
@@ -248,6 +248,7 @@ void SerialWorker::sendFrame(Frame *frame)
 quint8 SerialWorker::calculateChecksum(QByteArray buffer)
 {
     quint8 rv = 0;
+    //buffer.resize(50);
     for (int i = 0; i < buffer.count(); i++)
         rv += quint8(buffer[i]);
     return rv;
@@ -255,10 +256,10 @@ quint8 SerialWorker::calculateChecksum(QByteArray buffer)
 
 void SerialWorker::sendData(Frame *frame)
 {
-    QByteArray outBuffer;
     int dataToSend = 0;
     int frameLength = frame->GetDataLength() + Frame::FRAME_NUM_EXTRA_BYTES;
-
+    QByteArray outBuffer;
+    //outBuffer.resize(frameLength);
     QByteArray frameBuffer = frame->GetBuffer();
 
     outBuffer[dataToSend++] = Frame::FRAME_START;
@@ -276,6 +277,6 @@ void SerialWorker::sendData(Frame *frame)
         } else
             outBuffer[dataToSend++] = value;
     }
-    qDebug() << "Frame sent: " << outBuffer;
+    //qDebug() << "Frame sent: " << outBuffer;
     m_Serial->write(outBuffer);
 }

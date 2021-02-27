@@ -14,7 +14,6 @@ Frame::Frame(quint8 cmd, quint8 data, QObject *parent) : QObject(parent)
     m_buffer[INDEX_FIRST_DATA_BYTE] = data;
     m_buffer += CalculateChecksum();
 }
-
 Frame::Frame(quint8 cmd, qint8 data, QObject *parent) : QObject(parent)
 {
     m_buffer[INDEX_START_OF_FRAME] = FRAME_START;
@@ -23,7 +22,6 @@ Frame::Frame(quint8 cmd, qint8 data, QObject *parent) : QObject(parent)
     m_buffer[INDEX_FIRST_DATA_BYTE] = quint8(data);
     m_buffer += CalculateChecksum();
 }
-
 Frame::Frame(quint8 cmd, quint16 data, QObject *parent) : QObject(parent)
 {
     m_buffer[INDEX_START_OF_FRAME] = FRAME_START;
@@ -33,7 +31,6 @@ Frame::Frame(quint8 cmd, quint16 data, QObject *parent) : QObject(parent)
     m_buffer[INDEX_FIRST_DATA_BYTE + 1] = quint8(data & 0x00FF);
     m_buffer += CalculateChecksum();
 }
-
 Frame::Frame(quint8 cmd, qint16 data, QObject *parent) : QObject(parent)
 {
     m_buffer[INDEX_START_OF_FRAME] = FRAME_START;
@@ -43,7 +40,6 @@ Frame::Frame(quint8 cmd, qint16 data, QObject *parent) : QObject(parent)
     m_buffer[INDEX_FIRST_DATA_BYTE + 1] = quint8(data & 0x00FF);
     m_buffer += CalculateChecksum();
 }
-
 Frame::Frame(quint8 cmd, quint32 data, QObject *parent) : QObject(parent)
 {
     m_buffer[INDEX_START_OF_FRAME] = FRAME_START;
@@ -55,7 +51,6 @@ Frame::Frame(quint8 cmd, quint32 data, QObject *parent) : QObject(parent)
     m_buffer[INDEX_FIRST_DATA_BYTE + 3] = quint8(data & 0x000000FF);
     m_buffer += CalculateChecksum();
 }
-
 Frame::Frame(quint8 cmd, qint32 data, QObject *parent) : QObject(parent)
 {
     m_buffer[INDEX_START_OF_FRAME] = FRAME_START;
@@ -67,7 +62,6 @@ Frame::Frame(quint8 cmd, qint32 data, QObject *parent) : QObject(parent)
     m_buffer[INDEX_FIRST_DATA_BYTE + 3] = quint8(data & 0x000000FF);
     m_buffer += CalculateChecksum();
 }
-
 Frame::Frame(quint8 cmd, QByteArray data, QObject *parent) : QObject(parent)
 {
    m_buffer[INDEX_START_OF_FRAME] = FRAME_START;
@@ -93,7 +87,6 @@ quint8 Frame::GetCmd()
         rv = quint8(m_buffer[INDEX_CMD]);
     return rv;
 }
-
 quint8  Frame::GetDataLength()
 {
     quint8 rv = 0;
@@ -109,7 +102,6 @@ quint8 Frame::GetUByte()
         rv = quint8(m_buffer[INDEX_FIRST_DATA_BYTE]);
     return rv;
 }
-
 quint8 Frame::GetUByte(int index)
 {
     quint8 rv = 0;
@@ -117,7 +109,6 @@ quint8 Frame::GetUByte(int index)
         rv = quint8(m_buffer[INDEX_FIRST_DATA_BYTE + index]);
     return rv;
 }
-
 qint8 Frame::GetSByte()
 {
     qint8 rv = 0;
@@ -141,7 +132,6 @@ quint16 Frame::GetUInt16()
         rv = quint16(makeWord(m_buffer[INDEX_FIRST_DATA_BYTE + 1], m_buffer[INDEX_FIRST_DATA_BYTE]));
     return rv;
 }
-
 quint16 Frame::GetUInt16(int index)
 {
     quint16 rv = 0;
@@ -149,7 +139,6 @@ quint16 Frame::GetUInt16(int index)
         rv = quint16(makeWord(m_buffer[INDEX_FIRST_DATA_BYTE + 1 + index], m_buffer[INDEX_FIRST_DATA_BYTE + index]));
     return rv;
 }
-
 qint16  Frame::GetInt16()
 {
     qint16 rv = 0;
@@ -157,7 +146,6 @@ qint16  Frame::GetInt16()
         rv = qint16(makeWord(m_buffer[INDEX_FIRST_DATA_BYTE + 1], m_buffer[INDEX_FIRST_DATA_BYTE]));
     return rv;
 }
-
 quint32 Frame::GetUInt32()
 {
     quint32 rv = 0;
@@ -166,7 +154,6 @@ quint32 Frame::GetUInt32()
                     makeWord(m_buffer[INDEX_FIRST_DATA_BYTE + 1], m_buffer[INDEX_FIRST_DATA_BYTE])));
     return rv;
 }
-
 quint32 Frame::GetUInt32(int index)
 {
     quint32 rv = 0;
@@ -175,7 +162,6 @@ quint32 Frame::GetUInt32(int index)
                     makeWord(m_buffer[INDEX_FIRST_DATA_BYTE + 1 + index], m_buffer[INDEX_FIRST_DATA_BYTE + index])));
     return rv;
 }
-
 qint32 Frame::GetInt32()
 {
     qint32 rv = 0;

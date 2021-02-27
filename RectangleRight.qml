@@ -10,6 +10,8 @@ Rectangle {
 
     property alias dialMode: dial_mode
     property alias coldHotSwitch: hc_switch
+    property alias thermostatPool: thermostat_pool
+    property alias thermostatFloor: thermostat_floor
 
     color: "transparent"
     opacity: 0.3
@@ -58,7 +60,7 @@ Rectangle {
         scale: 1.15
         displayText: qsTr("Piscina")
 
-        onDesiredTempChanged: {serial.sendTemperatureFloor(desiredTemp)}
+        onDesiredTempChanged: {serial.sendTemperaturePool(desiredTemp)}
     }
 
     Thermostat {

@@ -29,6 +29,9 @@ Item {
     property alias pressureReturn: pressure_return
     property alias hgFloor: hg_floor
 
+    property alias desiredTempPool: desired_temp_pool
+    property alias desiredTempFloor: desired_temp_floor
+
     Image {
         id: scada_full_image
         width: parent.width
@@ -123,6 +126,27 @@ Item {
         font.bold: true
         font.pointSize: 40
         color: "gray"
+    }
+
+    Text {
+        id: desired_temp_pool
+        anchors.top: temp_pool.bottom
+        anchors.left: temp_pool.left
+        text: qsTr("--.-" + "°C")
+        font.family: "Roboto"
+        font.bold: true
+        font.pointSize: 15
+        color: "lightGray"
+    }
+    Text {
+        id: desired_temp_floor
+        anchors.top: temp_floor.bottom
+        anchors.left: temp_floor.left
+        text: qsTr("--.-" + "°C")
+        font.family: "Roboto"
+        font.bold: true
+        font.pointSize: 15
+        color: "lightGray"
     }
 
     Text {

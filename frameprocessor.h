@@ -15,7 +15,7 @@ class FrameProcessor : public QObject
     static const quint8 CMD_STATE_FLOOR = 3;
     static const quint8 CMD_STATE_HOT_SERIES = 4;
     static const quint8 CMD_STATE_HOT_PARALELL = 5;
-    static const quint8 CMD_STATE_COLD_SEERIES = 6;
+    static const quint8 CMD_STATE_COLD_SERIES = 6;
     static const quint8 CMD_STATE_COLD_PARALELL = 7;
     static const quint8 CMD_STATE_EMERGENCE = 8;
     static const quint8 CMD_TEMP_POOL = 9;
@@ -39,6 +39,10 @@ class FrameProcessor : public QObject
     static const quint8 STATE_PUMP_POOL_IMP = 113;
     static const quint8 STATE_PUMP_POOL = 114;
     static const quint8 STATE_PUMP_FLOOR = 115;
+
+    static const quint8 DESIRED_TEPM_POOL = 116;
+    static const quint8 DESIRED_TEMP_FLOOR = 117;
+    static const quint8 DESIRED_STATE = 118;
 
     Q_OBJECT
 public:
@@ -65,13 +69,14 @@ signals:
     void changedInput113(int _value);
     void changedInput114(int _value);
     void changedInput115(int _value);
+    void changedInput116(int _value);
+    void changedInput117(int _value);
 
 
 public slots:
     void FrameIncoming(Frame *frame);
     void sendStateStop(quint8 enable);
     void sendStatePool(quint8 enable);
-    //void sendStatePool(quint8 enable,quint8 tempPool);
     void sendStateFloor(quint8 enable);
     void sendStateHotSeries(quint8 enable);
     void sendStateHotParalell(quint8 enable);

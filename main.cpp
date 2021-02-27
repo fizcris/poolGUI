@@ -8,8 +8,6 @@
 #include "serialworker.h"
 #include "frameprocessor.h"
 
-
-
 int main(int argc, char *argv[])
 {
     int rv;

@@ -31,7 +31,7 @@ public:
     explicit Frame(quint8 cmd, quint32 data, QObject *parent = nullptr);
     explicit Frame(quint8 cmd, qint32 data, QObject *parent = nullptr);
     explicit Frame(quint8 cmd, QByteArray data, QObject *parent = nullptr);
-     ~Frame();
+    ~Frame();
 
     static quint16 makeWord(quint8 l, quint8 h);
     static quint32 makeDWord(quint16 l, quint16 h);

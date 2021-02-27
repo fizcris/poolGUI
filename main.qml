@@ -14,6 +14,7 @@ Window {
     color: "#000000"
     visibility:  "FullScreen"
 
+
     //    AnimatedImage {
     //        id: animation_background
     //        source: "qrc:/resources/gifs/animation_right.gif"
@@ -100,6 +101,12 @@ Window {
         function onChangedInput108(_value){
             rectangleLeft.scadaItem.hgFloor.text = qsTr("" + (_value/10).toFixed(1) + "%");
         }
+        function onChangedInput116(_value){
+            rectangleLeft.scadaItem.desiredTempPool.text = qsTr("" + (_value/10).toFixed(1) + "°C");
+        }
+        function onChangedInput117(_value){
+            rectangleLeft.scadaItem.desiredTempFloor.text = qsTr("" + (_value/10).toFixed(1) + "°C");
+        }
 
     }
 
@@ -120,5 +127,6 @@ Window {
             }
         }
     }
+
 
 }
