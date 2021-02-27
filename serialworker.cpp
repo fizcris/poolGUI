@@ -58,8 +58,8 @@ void SerialWorker::doWork()
     // Serial Port Initialization
     m_Serial = new QSerialPort();
 
-    m_Serial->setPortName("ttyS0");
-    //m_Serial->setPortName("ttyUSB0");
+    //m_Serial->setPortName("ttyS0");
+    m_Serial->setPortName("ttyUSB0");
     m_Serial->setBaudRate(QSerialPort::Baud115200);
     m_Serial->setDataBits(QSerialPort::Data8);
     m_Serial->setParity(QSerialPort::NoParity);
