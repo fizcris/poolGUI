@@ -32,14 +32,25 @@ Item  {
             dial_mode_priv.state = "cold_paralell";
     }
 
+    function sendState() {
+        if (!rectangleTop.onOffSwitch.switchOnOff.checked) {serial.sendStateStop(1);
+        }else{
+            if(dial_mode_priv.state == "hot_pool"  )   {serial.sendStatePool(1)};
+            if(dial_mode_priv.state == "hot_floor" )   {serial.sendStateFloor(1);};
+            if(dial_mode_priv.state == "hot_series")   {serial.sendStateHotSeries(1)};
+            if(dial_mode_priv.state == "hot_paralell") {serial.sendStateHotParalell(1)}
+            if(dial_mode_priv.state == "cold_series")  {serial.sendStateColdSeries(1)};
+            if(dial_mode_priv.state == "cold_paralell"){serial.sendStateColdParalell(1)};
+
+            serial.sendTemperaturePool(rectangleRight.thermostatPool.desiredTemp);
+            serial.sendTemperatureFloor(rectangleRight.thermostatFloor.desiredTemp)
+
+        }
+    }
+
 
     onStateChanged: {
-    if(dial_mode_priv.state == "hot_pool"  ){serial.sendStatePool(1); serial.sendTemperaturePool(rectangleRight.thermostatPool.desiredTemp); serial.sendTemperatureFloor(rectangleRight.thermostatFloor.desiredTemp)};
-    if(dial_mode_priv.state == "hot_floor"  ){serial.sendStateFloor(1); serial.sendTemperaturePool(rectangleRight.thermostatPool.desiredTemp); serial.sendTemperatureFloor(rectangleRight.thermostatFloor.desiredTemp)};
-    if(dial_mode_priv.state == "hot_series"  ){serial.sendStateHotSeries(1); serial.sendTemperaturePool(rectangleRight.thermostatPool.desiredTemp); serial.sendTemperatureFloor(rectangleRight.thermostatFloor.desiredTemp)};
-    if(dial_mode_priv.state == "hot_paralell"  ){serial.sendStateHotParalell(1); serial.sendTemperaturePool(rectangleRight.thermostatPool.desiredTemp); serial.sendTemperatureFloor(rectangleRight.thermostatFloor.desiredTemp)};
-    if(dial_mode_priv.state == "cold_series"  ){serial.sendStateColdSeries(1); serial.sendTemperaturePool(rectangleRight.thermostatPool.desiredTemp); serial.sendTemperatureFloor(rectangleRight.thermostatFloor.desiredTemp)};
-    if(dial_mode_priv.state == "cold_paralell"  ){serial.sendStateColdParalell(1); serial.sendTemperaturePool(rectangleRight.thermostatPool.desiredTemp); serial.sendTemperatureFloor(rectangleRight.thermostatFloor.desiredTemp)};
+        sendState();
     }
 
     property int x1: 70

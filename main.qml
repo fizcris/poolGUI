@@ -128,5 +128,11 @@ Window {
         }
     }
 
+    //Heartbeat Serial signal
+    Timer {
+        interval: 1000; running: true; repeat: true;
+        onTriggered: {rectangleRight.dialMode.sendState(); }
+    }
+
 
 }
