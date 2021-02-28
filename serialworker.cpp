@@ -70,22 +70,25 @@ void SerialWorker::doWork()
     emit serialConnected(m_Serial->isReadable());
 
 
-
     while(!abort)
     {
-
-        while (!m_Serial->isReadable() || (m_Serial->error() == QSerialPort::SerialPortError::ReadError)){
+        //qDebug() << "SerialPort Status Wait: " << m_Serial->error();
+        while (!m_Serial->isReadable() || (m_Serial->error() != QSerialPort::SerialPortError::NoError)){
+            if (m_Serial->error() == QSerialPort::SerialPortError::TimeoutError){
+                m_Serial->clearError();
+                //emit serialConnected(m_Serial->isReadable());
+                break;
+            }
             m_Serial->close();
             QThread::sleep(1);
             m_Serial->clearError();
-            //qDebug() << "SerialPort Status Wait: " << m_Serial->isReadable();
             qDebug() << "SerialPort Error Wait: " << m_Serial->error();
+            qDebug() << "Is readable? Wait: " << m_Serial->isReadable();
             m_Serial->open(QIODevice::ReadWrite);
             mutex.lock();
-            abort = _abort;
+            abort = true;
             mutex.unlock();
             emit serialConnected(m_Serial->isReadable());
-
         }
 
         //qDebug() << "Lock mutex";
