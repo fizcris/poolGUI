@@ -88,8 +88,6 @@ public slots:
     void sendTemperaturePool(quint16 temp);
     void sendTemperatureFloor(quint16 temp);
 
-    //void setPwm(quint8 color, quint8 value);
-    //void enableAdc(quint8 enable);
 };
 
 #endif // FRAMEPROCESSOR_H

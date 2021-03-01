@@ -88,11 +88,9 @@ void SerialWorker::doWork()
         while (isConected(m_Serial)) {
 
             //emit serialConnected(true);
-            //qDebug() << "Lock mutex";
             mutex.lock();
             abort = _abort;
             mutex.unlock();
-            //qDebug() << "Unlock mutex";
             //emit serialConnected(m_Serial->isReadable());
 
             if(!m_outFrameQueue->isEmpty())
@@ -158,6 +156,7 @@ void SerialWorker::doWork()
                                 m_inFrame->AddByte(inByte);
                                 checksum += inByte;
                                 receiverStatus = RCV_ST_DATA;
+                                if (dataLength > 2) {receiverStatus = RCV_ST_IDLE; break;} //TODO!
                             } break;
 
                             case RCV_ST_DATA:
