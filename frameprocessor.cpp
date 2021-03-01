@@ -89,6 +89,10 @@ void FrameProcessor::FrameIncoming(Frame *frame)
         {
             emit changedInput117(frame->GetUInt16());
         } break;
+        case DESIRED_STATE:
+        {
+            emit changedInput118(frame->GetUInt16());
+        } break;
         }
 
     }

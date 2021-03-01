@@ -73,7 +73,7 @@ void SerialWorker::doWork()
     while(!abort)
     {
         QThread::msleep(5);
-        qDebug() << "SerialPort Status Wait: " << isConected(m_Serial);
+        //qDebug() << "SerialPort Status Wait: " << isConected(m_Serial);
         while (!isConected(m_Serial)){
             //emit serialConnected(false);
             QThread::sleep(1);

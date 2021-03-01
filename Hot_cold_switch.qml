@@ -9,6 +9,7 @@ Item {
 
     property alias checked: cold_hot_switch.checked
     property alias coldHotSwitch: cold_hot_switch
+    property alias desiredState: desired_state
 
     function toggleState() {
         if (state == "cold")
@@ -27,7 +28,7 @@ Item {
     Grid{
         width: 400
         height: parent.height
-        columns: 3; rows: 1
+        columns: 4; rows: 1
         spacing: 5
 
         Rectangle{height: parent.height; width: 200;
@@ -129,7 +130,24 @@ Item {
                 onTapped: cold_hot_switch.checked = true
             }
         }
+        Rectangle{height: parent.height; width: 100; color: "transparent"; clip: true;
+
+            Text {
+                id: desired_state
+                anchors{
+                verticalCenter: parent.verticalCenter
+                horizontalCenter: parent.horizontalCenter
+                }
+                text: qsTr("-" + "/6")
+                font.family: "Roboto"
+                font.bold: true
+                font.pointSize: 30
+                color: "gray"
+            }
+
+        }
     }
+
     states: [
         State {
             name: "hot"

@@ -71,6 +71,7 @@ signals:
     void changedInput115(int _value);
     void changedInput116(int _value);
     void changedInput117(int _value);
+    void changedInput118(int _value);
 
 
 public slots:

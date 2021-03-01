@@ -107,6 +107,9 @@ Window {
         function onChangedInput117(_value){
             rectangleLeft.scadaItem.desiredTempFloor.text = qsTr("" + (_value/10).toFixed(1) + "°C");
         }
+        function onChangedInput118(_value){
+            rectangleRight.coldHotSwitch.desiredState.text = qsTr("" + (_value/10).toFixed(0)+ "/6")
+        }
 
     }
 
