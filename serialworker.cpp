@@ -251,7 +251,6 @@ void SerialWorker::sendFrame(Frame *frame)
 quint8 SerialWorker::calculateChecksum(QByteArray buffer)
 {
     quint8 rv = 0;
-    //buffer.resize(50);
     for (int i = 0; i < buffer.count(); i++)
         rv += quint8(buffer[i]);
     return rv;
@@ -262,7 +261,7 @@ void SerialWorker::sendData(Frame *frame)
     int dataToSend = 0;
     int frameLength = frame->GetDataLength() + Frame::FRAME_NUM_EXTRA_BYTES;
     QByteArray outBuffer;
-    //outBuffer.resize(frameLength);
+    outBuffer.resize(frameLength);  //Is it the right lenght?
     QByteArray frameBuffer = frame->GetBuffer();
 
     outBuffer[dataToSend++] = Frame::FRAME_START;
