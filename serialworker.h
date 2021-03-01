@@ -29,6 +29,7 @@ private:
     QQueue<Frame*> *m_outFrameQueue;
     quint8 calculateChecksum(QByteArray buffer);
     void sendData(Frame *frame);
+    bool isConected(QSerialPort *m_serial);
 
 signals:
     void workRequested();

@@ -58,8 +58,8 @@ void SerialWorker::doWork()
     // Serial Port Initialization
     m_Serial = new QSerialPort();
 
-    //m_Serial->setPortName("ttyS0");
-    m_Serial->setPortName("ttyUSB0");
+    m_Serial->setPortName("ttyS0");
+    //m_Serial->setPortName("ttyUSB0");
     m_Serial->setBaudRate(QSerialPort::Baud115200);
     m_Serial->setDataBits(QSerialPort::Data8);
     m_Serial->setParity(QSerialPort::NoParity);
@@ -72,122 +72,120 @@ void SerialWorker::doWork()
 
     while(!abort)
     {
-        //qDebug() << "SerialPort Status Wait: " << m_Serial->error();
-        while (!m_Serial->isReadable() || (m_Serial->error() != QSerialPort::SerialPortError::NoError)){
-            if (m_Serial->error() == QSerialPort::SerialPortError::TimeoutError){
-                m_Serial->clearError();
-                //emit serialConnected(m_Serial->isReadable());
-                break;
-            }
-            m_Serial->close();
+        QThread::msleep(5);
+        qDebug() << "SerialPort Status Wait: " << isConected(m_Serial);
+        while (!isConected(m_Serial)){
+            //emit serialConnected(false);
             QThread::sleep(1);
-            m_Serial->clearError();
-            qDebug() << "SerialPort Error Wait: " << m_Serial->error();
-            qDebug() << "Is readable? Wait: " << m_Serial->isReadable();
-            m_Serial->open(QIODevice::ReadWrite);
+            qDebug() << "Serial Error: " << m_Serial->error();
+            qDebug() << "Is readable?: " << m_Serial->isReadable();
+            qDebug() << "Bytes availiable?: " << m_Serial->bytesAvailable();
             mutex.lock();
-            abort = true;
+            abort = _abort;
             mutex.unlock();
-            emit serialConnected(m_Serial->isReadable());
         }
 
-        //qDebug() << "Lock mutex";
-        mutex.lock();
-        abort = _abort;
-        mutex.unlock();
-        //qDebug() << "Unlock mutex";
-        //emit serialConnected(m_Serial->isReadable());
+        while (isConected(m_Serial)) {
 
-        if(!m_outFrameQueue->isEmpty())
-        {
-            //qDebug() << "Frame empty";
-            Frame *outFrame = m_outFrameQueue->dequeue();
-            sendFrame(outFrame);
-            delete outFrame;
+            //emit serialConnected(true);
+            //qDebug() << "Lock mutex";
+            mutex.lock();
+            abort = _abort;
+            mutex.unlock();
+            //qDebug() << "Unlock mutex";
+            //emit serialConnected(m_Serial->isReadable());
 
-        } else
-        {
-            if (m_Serial->waitForReadyRead(10))
+            if(!m_outFrameQueue->isEmpty())
             {
-                QByteArray receivedData;
-                //receivedData.resize(50);
-                receivedData = m_Serial->readAll();
-                //qDebug() << "receivedData" << receivedData;
-                //qDebug() << "receivedData.count" << receivedData.count();
+                //qDebug() << "Frame empty";
+                Frame *outFrame = m_outFrameQueue->dequeue();
+                sendFrame(outFrame);
+                delete outFrame;
 
-                while(receivedData.count() > 0 && receivedData.count() < maxdataLength)
+            } else
+            {
+                if (m_Serial->waitForReadyRead(20) )
                 {
-                    //qDebug() << "Counting data";
-                    inByte = quint8(receivedData[0]);
-                    receivedData.remove(0,1);
+                    QByteArray receivedData;
+                    //receivedData.resize(50);
+                    receivedData = m_Serial->readAll();
+                    //qDebug() << "receivedData" << receivedData;
+                    //qDebug() << "receivedData.count" << receivedData.count();
 
-                    if(inByte == Frame::FRAME_ESCAPE_CHAR)
+                    while(receivedData.count() > 0 && receivedData.count() < maxdataLength )
                     {
-                        xored = Frame::FRAME_XOR_CHAR;
-                        //qDebug() << "Escape char";
-                    } else
-                    {
-                        inByte ^= xored;
-                        xored = 0x00;
+                        //qDebug() << "Counting data";
+                        inByte = quint8(receivedData[0]);
+                        receivedData.remove(0,1);
 
-                        switch (receiverStatus)
-
+                        if(inByte == Frame::FRAME_ESCAPE_CHAR)
                         {
-
-                        case RCV_ST_IDLE:
+                            xored = Frame::FRAME_XOR_CHAR;
+                            //qDebug() << "Escape char";
+                        } else
                         {
-                            if(inByte == Frame::FRAME_START)
+                            inByte ^= xored;
+                            xored = 0x00;
+
+                            switch (receiverStatus)
+
                             {
-                                if (m_inFrame == nullptr)
-                                    m_inFrame = new Frame();
-                                else
-                                    m_inFrame->Clear();
+
+                            case RCV_ST_IDLE:
+                            {
+                                if(inByte == Frame::FRAME_START)
+                                {
+                                    if (m_inFrame == nullptr)
+                                        m_inFrame = new Frame();
+                                    else
+                                        m_inFrame->Clear();
+                                    m_inFrame->AddByte(inByte);
+                                    checksum = inByte;
+                                    receiverStatus = RCV_ST_CMD;
+                                }
+                            } break;
+
+                            case RCV_ST_CMD:
+                            {
                                 m_inFrame->AddByte(inByte);
-                                checksum = inByte;
-                                receiverStatus = RCV_ST_CMD;
-                            }
-                        } break;
+                                checksum += inByte;
+                                receiverStatus = RCV_ST_DATA_LENGTH;
+                            } break;
 
-                        case RCV_ST_CMD:
-                        {
-                            m_inFrame->AddByte(inByte);
-                            checksum += inByte;
-                            receiverStatus = RCV_ST_DATA_LENGTH;
-                        } break;
-
-                        case RCV_ST_DATA_LENGTH:
-                        {
-                            numByte = dataLength = inByte;
-                            m_inFrame->AddByte(inByte);
-                            checksum += inByte;
-                            receiverStatus = RCV_ST_DATA;
-                        } break;
-
-                        case RCV_ST_DATA:
-                        {
-                            m_inFrame->AddByte(inByte);
-                            checksum += inByte;
-                            if (--numByte == 0)
-                                receiverStatus = RCV_ST_CHECKSUM;
-                            else if (numByte < 0)
-                                receiverStatus = RCV_ST_IDLE;
-                        } break;
-
-                        case RCV_ST_CHECKSUM:
-                        {
-                            if (inByte == checksum)
+                            case RCV_ST_DATA_LENGTH:
                             {
-                                receiverStatus = RCV_ST_IDLE;
-                                m_inFrame->AddByte(checksum);
-                                emit this->frameReceived(m_inFrame);
-                            }
-                            else
+                                numByte = dataLength = inByte;
+                                m_inFrame->AddByte(inByte);
+                                checksum += inByte;
+                                receiverStatus = RCV_ST_DATA;
+                            } break;
+
+                            case RCV_ST_DATA:
                             {
-                                receiverStatus = RCV_ST_IDLE;
-                                m_inFrame->Clear();
-                                delete m_inFrame;
+                                m_inFrame->AddByte(inByte);
+                                checksum += inByte;
+                                if (--numByte == 0)
+                                    receiverStatus = RCV_ST_CHECKSUM;
+                                else if (numByte < 0)
+                                    receiverStatus = RCV_ST_IDLE;
+                            } break;
+
+                            case RCV_ST_CHECKSUM:
+                            {
+                                if (inByte == checksum)
+                                {
+                                    receiverStatus = RCV_ST_IDLE;
+                                    m_inFrame->AddByte(checksum);
+                                    emit this->frameReceived(m_inFrame);
+                                }
+                                else
+                                {
+                                    receiverStatus = RCV_ST_IDLE;
+                                    m_inFrame->Clear();
+                                    delete m_inFrame;
+                                }
+                            } break;
                             }
-                        } break;
                         }
                     }
                 }
@@ -249,6 +247,7 @@ void SerialWorker::sendFrame(Frame *frame)
 }
 
 quint8 SerialWorker::calculateChecksum(QByteArray buffer)
+
 {
     quint8 rv = 0;
     for (int i = 0; i < buffer.count(); i++)
@@ -282,3 +281,19 @@ void SerialWorker::sendData(Frame *frame)
     //qDebug() << "Frame sent: " << outBuffer;
     m_Serial->write(outBuffer);
 }
+
+bool SerialWorker::isConected(QSerialPort *m_Serial){
+//    qDebug() << "SerialPort Error: " << m_Serial->error();
+//    qDebug() << "SerialPort isReadable:  " << m_Serial->isReadable();
+//    qDebug() << "SerialPort isReadable:  " << m_Serial->bytesAvailable();
+    if (m_Serial->error() == QSerialPort::SerialPortError::NoError){
+        return true;
+    }  else {
+        //m_Serial->reset();
+        m_Serial->close();
+        m_Serial->clearError();
+        m_Serial->open(QIODevice::ReadWrite);
+        return  false;
+    }
+}
+
