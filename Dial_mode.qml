@@ -249,7 +249,7 @@ Item  {
             PropertyChanges { target: series_icon_color; color: "orange"; visible:true  }
             PropertyChanges { target: knob_background; color: "orange"; opacity: 1;}
             PropertyChanges { target: thermostat_pool; enabled: true;}
-            PropertyChanges { target: thermostat_floor; enabled: true;}
+            PropertyChanges { target: thermostat_floor; enabled: false;}
             PropertyChanges { target: rectangleLeft.scadaItem.scadaImage; source: "qrc:/resources/scada/scada_hot_series.png";}
             PropertyChanges { target: rectangleLeft.scadaItem.scadavk2; source: "qrc:/resources/scada/valve_3_on.png";}
             PropertyChanges { target: rectangleLeft.scadaItem.scadavk3; source: "qrc:/resources/scada/valve_vk3_on.png";}
