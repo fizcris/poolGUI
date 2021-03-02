@@ -95,14 +95,14 @@ Frame::~Frame()
 quint8 Frame::GetCmd()
 {
     quint8 rv = 0;
-    if(m_buffer.count() > 3)
+    if(m_buffer.count() > 3 && m_buffer.length() > (INDEX_CMD))
         rv = quint8(m_buffer.at(INDEX_CMD));
     return rv;
 }
 quint8  Frame::GetDataLength()
 {
     quint8 rv = 0;
-    if(m_buffer.count() > INDEX_CMD)
+    if(m_buffer.count() > INDEX_CMD && m_buffer.length() > (INDEX_DATA_LENGTH))
         rv = quint8(m_buffer.at(INDEX_DATA_LENGTH));
     return rv;
 }
@@ -110,21 +110,22 @@ quint8  Frame::GetDataLength()
 quint8 Frame::GetUByte()
 {
     quint8 rv = 0;
-    if(this->GetDataLength() > 0)
+    if(this->GetDataLength() > 0 && m_buffer.length() > (INDEX_FIRST_DATA_BYTE))
         rv = quint8(m_buffer.at(INDEX_FIRST_DATA_BYTE));
     return rv;
 }
+
 quint8 Frame::GetUByte(int index)
 {
     quint8 rv = 0;
-    if(this->GetDataLength() > 0)
+    if(this->GetDataLength() > 0 && m_buffer.length() > (INDEX_FIRST_DATA_BYTE + index))
         rv = quint8(m_buffer.at(INDEX_FIRST_DATA_BYTE + index));
     return rv;
 }
 qint8 Frame::GetSByte()
 {
     qint8 rv = 0;
-    if(this->GetDataLength() > 0)
+    if(this->GetDataLength() > 0 && m_buffer.length() > (INDEX_FIRST_DATA_BYTE))
         rv = qint8(m_buffer.at(INDEX_FIRST_DATA_BYTE));
     return rv;
 }
@@ -132,55 +133,54 @@ qint8 Frame::GetSByte()
 quint8 Frame::GetIndexedByte(int index)
 {
     quint8 rv = 0;
-    if(this->GetDataLength() > 0)
+    if(this->GetDataLength() > 0 && m_buffer.length() > (INDEX_FIRST_DATA_BYTE + index))
         rv = quint8(m_buffer.at(INDEX_FIRST_DATA_BYTE + index));
     return rv;
 }
 
 quint16 Frame::GetUInt16()        //rv = quint16(makeWord(m_buffer[INDEX_FIRST_DATA_BYTE + 1], m_buffer[INDEX_FIRST_DATA_BYTE]));
-
 {
     quint16 rv = 0;
-    if(this->GetDataLength() > 0)
+    if(this->GetDataLength() > 0 && m_buffer.length() > (INDEX_FIRST_DATA_BYTE + 1) )
         rv = quint16(makeWord(m_buffer.at(INDEX_FIRST_DATA_BYTE + 1), m_buffer.at(INDEX_FIRST_DATA_BYTE)));
     return rv;
 }
 quint16 Frame::GetUInt16(int index)
 {
     quint16 rv = 0;
-    if(this->GetDataLength() > 0)
+    if(this->GetDataLength() > 0 && m_buffer.length() > (INDEX_FIRST_DATA_BYTE + 1 + index) )
         rv = quint16(makeWord(m_buffer.at(INDEX_FIRST_DATA_BYTE + 1 + index), m_buffer.at(INDEX_FIRST_DATA_BYTE + index)));
     return rv;
 }
 qint16  Frame::GetInt16()
 {
     qint16 rv = 0;
-    if(this->GetDataLength() > 0)
+    if(this->GetDataLength() > 0 && m_buffer.length() > (INDEX_FIRST_DATA_BYTE + 1) )
         rv = qint16(makeWord(m_buffer.at(INDEX_FIRST_DATA_BYTE + 1), m_buffer.at(INDEX_FIRST_DATA_BYTE)));
     return rv;
 }
 quint32 Frame::GetUInt32()
 {
     quint32 rv = 0;
-    if(this->GetDataLength() > 0)
+    if(this->GetDataLength() > 0 &&  m_buffer.length() > (INDEX_FIRST_DATA_BYTE + 3))
         rv = quint32(makeDWord(makeWord(m_buffer.at(INDEX_FIRST_DATA_BYTE + 3), m_buffer.at(INDEX_FIRST_DATA_BYTE + 2)),
-                makeWord(m_buffer.at(INDEX_FIRST_DATA_BYTE + 1), m_buffer.at(INDEX_FIRST_DATA_BYTE))));
+                               makeWord(m_buffer.at(INDEX_FIRST_DATA_BYTE + 1), m_buffer.at(INDEX_FIRST_DATA_BYTE))));
     return rv;
 }
 quint32 Frame::GetUInt32(int index)
 {
     quint32 rv = 0;
-    if(this->GetDataLength() > 0)
+    if(this->GetDataLength() > 0 && m_buffer.length() > (INDEX_FIRST_DATA_BYTE + 3 + index))
         rv = quint32(makeDWord(makeWord(m_buffer.at(INDEX_FIRST_DATA_BYTE + 3 + index), m_buffer.at(INDEX_FIRST_DATA_BYTE + 2 + index)),
-                makeWord(m_buffer.at(INDEX_FIRST_DATA_BYTE + 1 + index), m_buffer.at(INDEX_FIRST_DATA_BYTE + index))));
+                               makeWord(m_buffer.at(INDEX_FIRST_DATA_BYTE + 1 + index), m_buffer.at(INDEX_FIRST_DATA_BYTE + index))));
     return rv;
 }
 qint32 Frame::GetInt32()
 {
     qint32 rv = 0;
-    if(this->GetDataLength() > 0)
+    if(this->GetDataLength() > 0 && m_buffer.length() > (INDEX_FIRST_DATA_BYTE + 3))
         rv = qint32(makeDWord(makeWord(m_buffer.at(INDEX_FIRST_DATA_BYTE + 3), m_buffer.at(INDEX_FIRST_DATA_BYTE + 2)),
-                makeWord(m_buffer.at(INDEX_FIRST_DATA_BYTE + 1), m_buffer.at(INDEX_FIRST_DATA_BYTE))));
+                              makeWord(m_buffer.at(INDEX_FIRST_DATA_BYTE + 1), m_buffer.at(INDEX_FIRST_DATA_BYTE))));
     return rv;
 }
 
@@ -189,7 +189,8 @@ quint8  Frame::CalculateChecksum()
     quint8 rv = 0;
     for (int i = 0; i < m_buffer.count(); i++)
     {
-        rv += quint8(m_buffer.at(i));
+        if (m_buffer.length() > i)
+            rv += quint8(m_buffer.at(i));
     }
     return rv;
 }
