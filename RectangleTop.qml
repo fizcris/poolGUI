@@ -12,6 +12,7 @@ Rectangle {
 
     property alias  usbIconColor: usb_icon_color
     property alias  onOffSwitch: on_off_switch
+    property alias warningIcon: warning_icon
 
     property string hours: "00"
     property string minutes: "00"
@@ -84,13 +85,13 @@ Rectangle {
     Image {
         id: warning_icon
         anchors {
-            right: parent.right
+            right: on_off_switch.left
             rightMargin: 200
             verticalCenter: rectangleTop.verticalCenter
         }
         source: "qrc:/resources/icons/warning.png"
         scale: 1
-        visible: true
+        visible: false
     }
 
 
@@ -98,11 +99,11 @@ Rectangle {
         id: usb_icon
         anchors {
             right: parent.right
-            rightMargin: 10
+            rightMargin: 50
             verticalCenter: rectangleTop.verticalCenter
         }
         source: "qrc:/resources/icons/icon_usb.png"
-        scale: 1
+        scale: 1.5
         visible: true
 
         ColorOverlay {

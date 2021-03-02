@@ -53,6 +53,7 @@ private:
     QQueue<Frame*> *m_outFrameQueue;
 
 signals:
+    void changedInput8(int _value);
     void changedInput100(int _value);
     void changedInput101(int _value);
     void changedInput102(int _value);
@@ -83,7 +84,7 @@ public slots:
     void sendStateHotParalell(quint8 enable);
     void sendStateColdSeries(quint8 enable);
     void sendStateColdParalell(quint8 enable);
-    void sendStateEmergence(quint8 enable);
+//    void sendStateEmergence(quint8 enable);
 
     void sendTemperaturePool(quint16 temp);
     void sendTemperatureFloor(quint16 temp);

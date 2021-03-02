@@ -14,6 +14,10 @@ void FrameProcessor::FrameIncoming(Frame *frame)
 
         switch (cmd)
         {
+        case CMD_STATE_EMERGENCE:
+        {
+            emit changedInput8(frame->GetUInt16());
+        } break;
         case TEMP_POOL:
         {
             emit changedInput100(frame->GetUInt16());
@@ -145,12 +149,12 @@ void FrameProcessor::sendStateColdParalell(quint8 enable)
     Frame *frameToSend = new Frame(CMD_STATE_COLD_PARALELL, enable);
     m_outFrameQueue->enqueue(frameToSend);
 }
-void FrameProcessor::sendStateEmergence(quint8 enable)
-{
-    //TODO
-    Frame *frameToSend = new Frame(CMD_STATE_EMERGENCE, enable);
-    m_outFrameQueue->enqueue(frameToSend);
-}
+//void FrameProcessor::sendStateEmergence(quint8 enable)
+//{
+//    //TODO
+//    Frame *frameToSend = new Frame(CMD_STATE_EMERGENCE, enable);
+//    m_outFrameQueue->enqueue(frameToSend);
+//}
 
 void FrameProcessor::sendTemperaturePool(quint16 temp)
 {

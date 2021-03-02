@@ -74,6 +74,14 @@ Window {
     Connections
     {
         target: serial
+        function onChangedInput8(_value){
+            console.log(_value);
+            if (_value){
+                rectangleTop.warningIcon.visible = true;
+            } else {
+                rectangleTop.warningIcon.visible = false;
+            }
+        }
         function onChangedInput100(_value){
             rectangleLeft.scadaItem.tempPool.text = qsTr((_value/10).toFixed(1) + "°C");
         }
