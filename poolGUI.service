@@ -1,0 +1,22 @@
+# Place in /etc/systemd/system/poolGUI.service
+
+[Unit]
+Description=poolGUI
+After=multi-user.target
+
+
+[Service]
+User=pi
+
+Environment="DISPLAY=:0.0"
+Environment="QT_QPA_PLATFOMRTHEME=qt5ct"
+Environment="XAUTHORITY=/home/pi/.Xauthrity"
+Environment="XDG_SESSION_TYPE=x11"
+
+ExecStart=/home/pi/poolGUI/poolGUI
+
+Restart=always
+RestartSec=1
+
+[Install]
+WantedBy=default.target
