@@ -126,12 +126,11 @@ Window {
                 rectangleTop.onOffSwitch.switchOnOff.checked = false;
                 rectangleTop.onOffSwitch.enabled = false;
                 //rectangleTop.onOffSwitch.setState("enabled");
-
             }
         }
     }
 
-    //Heartbeat Serial signal
+    //Heartbeat Serial signal with current state
     Timer {
         interval: 1000; running: true; repeat: true;
         onTriggered: {rectangleRight.dialMode.sendState(); }
