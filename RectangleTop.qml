@@ -80,17 +80,29 @@ Rectangle {
         id: on_off_switch
     }
 
+
+    Image {
+        id: warning_icon
+        anchors {
+            right: parent.right
+            rightMargin: 200
+            verticalCenter: rectangleTop.verticalCenter
+        }
+        source: "qrc:/resources/icons/warning.png"
+        scale: 1
+        visible: true
+    }
+
+
     Image {
         id: usb_icon
-        x: 1613
-        anchors.verticalCenterOffset: 0
         anchors {
-            right: rectangleTop.right
-            rightMargin: -180
+            right: parent.right
+            rightMargin: 10
             verticalCenter: rectangleTop.verticalCenter
         }
         source: "qrc:/resources/icons/icon_usb.png"
-        scale: 0.2
+        scale: 1
         visible: true
 
         ColorOverlay {

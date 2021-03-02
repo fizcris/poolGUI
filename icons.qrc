@@ -17,5 +17,6 @@
         <file>resources/icons/pressed-bg-down.png</file>
         <file>resources/icons/inner-circle.png</file>
         <file>resources/icons/thermo-handle.png</file>
+        <file>resources/icons/warning.png</file>
     </qresource>
 </RCC>
