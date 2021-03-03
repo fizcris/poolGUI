@@ -24,6 +24,7 @@ private:
 
     bool _abort;
     bool _working;
+    bool _isSerialconnected = false;
     QMutex mutex;
     QSerialPort *m_Serial;
     QQueue<Frame*> *m_outFrameQueue;

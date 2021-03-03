@@ -3,6 +3,7 @@
 #include <QEventLoop>
 #include <QThread>
 #include <QDebug>
+#include <QDateTime>
 
 SerialWorker::SerialWorker(QQueue<Frame*> *outFrameQueue, QObject *parent) :
     QObject(parent)
@@ -45,7 +46,7 @@ void SerialWorker::doWork()
     qDebug()<<"Starting worker process in Thread "<<thread()->currentThreadId();
 
     bool abort = false;
-    bool isSerialConected = false;
+    bool isSerialConected = true;
     quint8 inByte;
     int numByte = 0;
     int receiverStatus = RCV_ST_IDLE;
@@ -53,6 +54,9 @@ void SerialWorker::doWork()
     quint8 checksum = 0, xored = 0x00;
     int dataLength = 0;
     int maxdataLength = 50;   // Be carefull if big frames are sent
+    QDateTime startTime = QDateTime::currentDateTime();
+    qint8 secondsDiff = 0;
+    qint8 timeoutSeconds = 1;
 
 
 
@@ -74,27 +78,30 @@ void SerialWorker::doWork()
     while(!abort)
     {
         QThread::msleep(5);
-//        qDebug() << "Serial Error: " << m_Serial->waitForReadyRead(10);
-        while (!isConected(m_Serial)){
-            emit serialConnected(false);
-            isSerialConected = false;
-            QThread::sleep(1);
-            qDebug() << "Serial Error: ";
-            //qDebug() << "Is readable?: " << m_Serial->isReadable();
-            //qDebug() << "Bytes availiable?: " << m_Serial->bytesAvailable();
+        //qDebug() << "isSerialConected:" << isSerialConected;
+        if (_isSerialconnected != isSerialConected){
+            _isSerialconnected = isSerialConected;
+            emit serialConnected(_isSerialconnected);
+        }
+
+        secondsDiff = startTime.secsTo(QDateTime::currentDateTime());
+        //qDebug() << "Watchdog Time:" << secondsDiff;
+        if (secondsDiff >= timeoutSeconds){
+            isSerialConected =false;
+            m_Serial->close();
+            m_Serial->clearError();
+            m_Serial->open(QIODevice::ReadWrite);
+            QThread::sleep(2);
+            startTime = QDateTime::currentDateTime(); //Reset Wd
             mutex.lock();
             abort = _abort;
             mutex.unlock();
-        }
-
-        if (!isSerialConected){
-        emit serialConnected(true);
-        isSerialConected=true;
-        }
+        };
 
         mutex.lock();
         abort = _abort;
         mutex.unlock();
+
 
         if(!m_outFrameQueue->isEmpty())
         {
@@ -105,7 +112,7 @@ void SerialWorker::doWork()
 
         } else
         {
-            if (m_Serial->waitForReadyRead(10) )
+            if (m_Serial->waitForReadyRead(10))
             {
                 QByteArray receivedData;
                 //receivedData.resize(50);
@@ -176,9 +183,13 @@ void SerialWorker::doWork()
                         {
                             if (inByte == checksum)
                             {
+                                //  qDebug() << "Frame OK";
                                 receiverStatus = RCV_ST_IDLE;
                                 m_inFrame->AddByte(checksum);
                                 emit this->frameReceived(m_inFrame);
+                                isSerialConected = true;
+                                startTime = QDateTime::currentDateTime();
+
                             }
                             else
                             {
@@ -284,26 +295,5 @@ void SerialWorker::sendData(Frame *frame)
     m_Serial->write(outBuffer);
 }
 
-bool SerialWorker::isConected(QSerialPort *m_Serial){
-    //    qDebug() << "SerialPort Error: " << m_Serial->error();
-    //    qDebug() << "SerialPort isReadable:  " << m_Serial->isReadable();
-    //    qDebug() << "SerialPort isReadable:  " << m_Serial->bytesAvailable();
-    if (m_Serial->error() == QSerialPort::SerialPortError::NoError){
-        return true;
-    }
-    else if (m_Serial->error() == QSerialPort::SerialPortError::TimeoutError){
-        m_Serial->clearError();
-        //m_Serial->reset();
-        return true;
-    }else{
-        m_Serial->reset();
-        m_Serial->close();
-        m_Serial->clearError();
-        QThread::sleep(1);
-        m_Serial->open(QIODevice::ReadWrite);
-
-        return  false;
-    }
-}
 
 

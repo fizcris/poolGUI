@@ -75,7 +75,6 @@ Window {
     {
         target: serial
         function onChangedInput8(_value){
-            console.log(_value);
             if (_value){
                 rectangleTop.warningIcon.visible = true;
             } else {
