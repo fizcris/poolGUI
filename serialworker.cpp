@@ -114,9 +114,7 @@ void SerialWorker::doWork()
         {
             if (m_Serial->waitForReadyRead(10))
             {
-                QByteArray receivedData;
-                //receivedData.resize(50);
-                receivedData = m_Serial->readAll();
+                QByteArray receivedData = m_Serial->readAll();
                 //qDebug() << "receivedData" << receivedData;
                 //qDebug() << "receivedData.count" << receivedData.count();
 
@@ -129,16 +127,13 @@ void SerialWorker::doWork()
                     if(inByte == Frame::FRAME_ESCAPE_CHAR)
                     {
                         xored = Frame::FRAME_XOR_CHAR;
-                        //qDebug() << "Escape char";
-                    } else
-                    {
+                    }
+                    else {
                         inByte ^= xored;
                         xored = 0x00;
 
                         switch (receiverStatus)
-
                         {
-
                         case RCV_ST_IDLE:
                         {
                             if(inByte == Frame::FRAME_START)
@@ -150,8 +145,9 @@ void SerialWorker::doWork()
                                 m_inFrame->AddByte(inByte);
                                 checksum = inByte;
                                 receiverStatus = RCV_ST_CMD;
+
                             }
-                        } break;
+                        }break;
 
                         case RCV_ST_CMD:
                         {
@@ -166,7 +162,10 @@ void SerialWorker::doWork()
                             m_inFrame->AddByte(inByte);
                             checksum += inByte;
                             receiverStatus = RCV_ST_DATA;
-                            if (dataLength > 2) {receiverStatus = RCV_ST_IDLE; break;} //TODO!
+                            if (dataLength > 2){
+                                receiverStatus = RCV_ST_IDLE;
+                                break;
+                            } //TODO datalenght!
                         } break;
 
                         case RCV_ST_DATA:
@@ -187,6 +186,7 @@ void SerialWorker::doWork()
                                 receiverStatus = RCV_ST_IDLE;
                                 m_inFrame->AddByte(checksum);
                                 emit this->frameReceived(m_inFrame);
+                                //Reset watchdog
                                 isSerialConected = true;
                                 startTime = QDateTime::currentDateTime();
 
@@ -198,6 +198,7 @@ void SerialWorker::doWork()
                                 delete m_inFrame;
                             }
                         } break;
+
                         }
                     }
                 }
@@ -206,94 +207,94 @@ void SerialWorker::doWork()
     }
 
 
-    if(m_Serial != nullptr)
-    {
-        m_Serial->close();
-        qDebug() << "SerialPort Closed";
-        delete m_Serial;
-        qDebug() << "SerialPort destroyed";
-    }
-
-    // Set _working to false, meaning the process can't be aborted anymore.
-    mutex.lock();
-    _working = false;
-    mutex.unlock();
-
-    qDebug()<<"Worker process finished in Thread "<<thread()->currentThreadId();
-
-    emit finished();
-}
-
-void SerialWorker::sendUint8(quint8 cmd, quint8 data)
-{
-    if(m_Serial != nullptr && m_Serial->isOpen())
-    {
-        Frame frameToSend(cmd, data);
-        sendData(&frameToSend);
-    }
-}
-
-void SerialWorker::sendUint16(quint8 cmd, quint16 data)
-{
-    if(m_Serial != nullptr && m_Serial->isOpen())
-    {
-        Frame frameToSend(cmd, data);
-        sendData(&frameToSend);
-    }
-}
-
-void SerialWorker::sendUint32(quint8 cmd, quint32 data)
-{
-    if(m_Serial != nullptr && m_Serial->isOpen())
-    {
-        Frame frameToSend(cmd, data);
-        sendData(&frameToSend);
-    }
-}
-
-void SerialWorker::sendFrame(Frame *frame)
-{
-    if(m_Serial != nullptr && m_Serial->isOpen() && frame != nullptr)
-    {
-        sendData(frame);
-    }
-}
-
-quint8 SerialWorker::calculateChecksum(QByteArray buffer)
-
-{
-    quint8 rv = 0;
-    for (int i = 0; i < buffer.count(); i++)
-        rv += quint8(buffer[i]);
-    return rv;
-}
-
-void SerialWorker::sendData(Frame *frame)
-{
-    int dataToSend = 0;
-    int frameLength = frame->GetDataLength() + Frame::FRAME_NUM_EXTRA_BYTES;
-    QByteArray outBuffer;
-    outBuffer.resize(frameLength);  //Is it the right lenght?
-    QByteArray frameBuffer = frame->GetBuffer();
-
-    outBuffer[dataToSend++] = Frame::FRAME_START;
-
-    quint8 value;
-
-    for(int i = 1; i < frameLength; i++)
-    {
-        value = frameBuffer[i];
-        if(value == Frame::FRAME_START || value == Frame::FRAME_ESCAPE_CHAR)
+        if(m_Serial != nullptr)
         {
-            //qDebug() << "SPECIAL CHAR: " << value << " - AT INDEX: " << i;
-            outBuffer[dataToSend++] = Frame::FRAME_ESCAPE_CHAR;
-            outBuffer[dataToSend++] = value ^ Frame::FRAME_XOR_CHAR;
-        } else
-            outBuffer[dataToSend++] = value;
+            m_Serial->close();
+            qDebug() << "SerialPort Closed";
+            delete m_Serial;
+            qDebug() << "SerialPort destroyed";
+        }
+
+        // Set _working to false, meaning the process can't be aborted anymore.
+        mutex.lock();
+        _working = false;
+        mutex.unlock();
+
+        qDebug()<<"Worker process finished in Thread "<<thread()->currentThreadId();
+
+        emit finished();
     }
-    //qDebug() << "Frame sent: " << outBuffer;
-    m_Serial->write(outBuffer);
-}
+
+    void SerialWorker::sendUint8(quint8 cmd, quint8 data)
+    {
+        if(m_Serial != nullptr && m_Serial->isOpen())
+        {
+            Frame frameToSend(cmd, data);
+            sendData(&frameToSend);
+        }
+    }
+
+    void SerialWorker::sendUint16(quint8 cmd, quint16 data)
+    {
+        if(m_Serial != nullptr && m_Serial->isOpen())
+        {
+            Frame frameToSend(cmd, data);
+            sendData(&frameToSend);
+        }
+    }
+
+    void SerialWorker::sendUint32(quint8 cmd, quint32 data)
+    {
+        if(m_Serial != nullptr && m_Serial->isOpen())
+        {
+            Frame frameToSend(cmd, data);
+            sendData(&frameToSend);
+        }
+    }
+
+    void SerialWorker::sendFrame(Frame *frame)
+    {
+        if(m_Serial != nullptr && m_Serial->isOpen() && frame != nullptr)
+        {
+            sendData(frame);
+        }
+    }
+
+    quint8 SerialWorker::calculateChecksum(QByteArray buffer)
+
+    {
+        quint8 rv = 0;
+        for (int i = 0; i < buffer.count(); i++)
+            rv += quint8(buffer[i]);
+        return rv;
+    }
+
+    void SerialWorker::sendData(Frame *frame)
+    {
+        int dataToSend = 0;
+        int frameLength = frame->GetDataLength() + Frame::FRAME_NUM_EXTRA_BYTES;
+        QByteArray outBuffer;
+        outBuffer.resize(frameLength);  //Is it the right lenght?
+        QByteArray frameBuffer = frame->GetBuffer();
+
+        outBuffer[dataToSend++] = Frame::FRAME_START;
+
+        quint8 value;
+
+        for(int i = 1; i < frameLength; i++)
+        {
+            value = frameBuffer[i];
+            if(value == Frame::FRAME_START || value == Frame::FRAME_ESCAPE_CHAR)
+            {
+                //qDebug() << "SPECIAL CHAR: " << value << " - AT INDEX: " << i;
+                outBuffer[dataToSend++] = Frame::FRAME_ESCAPE_CHAR;
+                outBuffer[dataToSend++] = value ^ Frame::FRAME_XOR_CHAR;
+            } else
+                outBuffer[dataToSend++] = value;
+        }
+        //qDebug() << "Frame sent: " << outBuffer;
+        m_Serial->write(outBuffer);
+    }
 
 
 
