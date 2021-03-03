@@ -53,6 +53,7 @@ public:
     void    Clear();
     void    AddByte(quint8 data);
     QByteArray GetBuffer();
+    quint8  GetBufferLength();
 
 signals:
 

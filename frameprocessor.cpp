@@ -99,6 +99,8 @@ void FrameProcessor::FrameIncoming(Frame *frame)
         } break;
         }
 
+        frame->deleteLater();
+
     }
 }
 

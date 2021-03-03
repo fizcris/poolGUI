@@ -48,7 +48,6 @@ Item  {
         }
     }
 
-
     onStateChanged: {
         sendState();
     }
