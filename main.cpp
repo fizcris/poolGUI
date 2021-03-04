@@ -43,8 +43,8 @@ int main(int argc, char *argv[])
     //Define SIGNALS and SLOTS
     QObject::connect(serialWorker, SIGNAL(frameReceived(Frame*)), frameProcessor, SLOT(FrameIncoming(Frame*)));
     QObject::connect(serialWorker, SIGNAL(workRequested()), threadSerial, SLOT(start()));
-    QObject::connect(threadSerial, SIGNAL(started()), serialWorker, SLOT(doWork()));
-    QObject::connect(serialWorker, SIGNAL(finished()), threadSerial, SLOT(quit()), Qt::DirectConnection);
+    QObject::connect(threadSerial, SIGNAL(started()), serialWorker, SLOT(doWork()),Qt::QueuedConnection);
+    QObject::connect(serialWorker, SIGNAL(finished()), threadSerial, SLOT(quit()), Qt::QueuedConnection);
 
     // End Serial thread
     qDebug() << "SerialWorker Running";

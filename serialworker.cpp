@@ -56,14 +56,14 @@ void SerialWorker::doWork()
     // For WD
     bool isSerialConected = true;
     QDateTime startTime = QDateTime::currentDateTime();
-    qint8 secondsDiff = 0;
-    qint8 timeoutSeconds = 1;
+    qint16 msecondsDiff = 0;
+    qint16 timeoutmSeconds = 1000;
 
     // Serial Port Initialization
     m_Serial = new QSerialPort();
     m_Serial->setPortName("ttyS0");
     //m_Serial->setPortName("ttyUSB0");
-    m_Serial->setBaudRate(QSerialPort::Baud115200);
+    m_Serial->setBaudRate(QSerialPort::Baud9600);
     m_Serial->setDataBits(QSerialPort::Data8);
     m_Serial->setParity(QSerialPort::NoParity);
     m_Serial->setStopBits(QSerialPort::OneStop);
@@ -80,14 +80,11 @@ void SerialWorker::doWork()
             emit serialConnected(_isSerialconnected);
         }
 
-        secondsDiff = startTime.secsTo(QDateTime::currentDateTime());
+        msecondsDiff = startTime.msecsTo(QDateTime::currentDateTime());
         //qDebug() << "Watchdog Time:" << secondsDiff;
-        if (secondsDiff >= timeoutSeconds){
+        if (msecondsDiff >= timeoutmSeconds){
             isSerialConected =false;
-            m_Serial->close();
-            m_Serial->clearError();
-            m_Serial->open(QIODevice::ReadWrite);
-            QThread::sleep(2);
+            QThread::sleep(1);
             startTime = QDateTime::currentDateTime(); //Reset Wd
             mutex.lock();
             abort = _abort;
@@ -102,7 +99,8 @@ void SerialWorker::doWork()
         {
             Frame *outFrame = m_outFrameQueue->dequeue();
             sendFrame(outFrame);
-            delete outFrame;
+            outFrame->deleteLater();
+
 
         } else
         {
@@ -238,9 +236,10 @@ void SerialWorker::sendUint32(quint8 cmd, quint32 data)
 
 void SerialWorker::sendFrame(Frame *frame)
 {
-    if(m_Serial != nullptr && m_Serial->isOpen() && frame != nullptr)
+    if(m_Serial != nullptr && m_Serial->isOpen() && frame != nullptr && _isSerialconnected)
     {
         sendData(frame);
+
     }
 }
 
@@ -260,20 +259,20 @@ void SerialWorker::sendData(Frame *frame)
     outBuffer.resize(frameLength);
     QByteArray frameBuffer = frame->GetBuffer();
 
-    outBuffer[dataToSend++] = Frame::FRAME_START;
+    outBuffer.insert(dataToSend++, Frame::FRAME_START);
 
     quint8 value;
 
     for(int i = 1; i < frameLength; i++)
     {
-        value = frameBuffer[i];
+        value = frameBuffer.at(i);
         if(value == Frame::FRAME_START || value == Frame::FRAME_ESCAPE_CHAR)
         {
             //qDebug() << "SPECIAL CHAR: " << value << " - AT INDEX: " << i;
-            outBuffer[dataToSend++] = Frame::FRAME_ESCAPE_CHAR;
-            outBuffer[dataToSend++] = value ^ Frame::FRAME_XOR_CHAR;
+            outBuffer.insert(dataToSend++,Frame::FRAME_ESCAPE_CHAR);
+            outBuffer.insert(dataToSend++,value ^ Frame::FRAME_XOR_CHAR);
         } else
-            outBuffer[dataToSend++] = value;
+            outBuffer.insert(dataToSend++, value);
     }
 
     m_Serial->write(outBuffer);

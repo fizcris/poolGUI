@@ -126,12 +126,12 @@ Window {
             if(_value){
                 //TODO implement disable state (Problems with threads)
                 rectangleTop.usbIconColor.color = "green";
-                rectangleTop.onOffSwitch.enabled = true;
+                //rectangleTop.onOffSwitch.enabled = true;
                 //rectangleTop.onOffSwitch.setState("disabled");
             }else {
                 rectangleTop.usbIconColor.color = "red";
-                rectangleTop.onOffSwitch.switchOnOff.checked = false;
-                rectangleTop.onOffSwitch.enabled = false;
+                //rectangleTop.onOffSwitch.switchOnOff.checked = false;
+                //rectangleTop.onOffSwitch.enabled = false;
                 //rectangleTop.onOffSwitch.setState("enabled");
             }
         }
