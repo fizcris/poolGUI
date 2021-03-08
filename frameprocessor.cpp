@@ -99,7 +99,9 @@ void FrameProcessor::FrameIncoming(Frame *frame)
         } break;
         }
 
-        frame->deleteLater();
+        //qDebug() << frame;
+        delete frame;
+
 
     }
 }
