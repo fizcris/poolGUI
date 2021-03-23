@@ -82,40 +82,40 @@ Window {
             }
         }
         function onChangedInput100(_value){
-            rectangleLeft.scadaItem.tempPool.text = qsTr((_value/10).toFixed(1) + "°C");
+            return rectangleLeft.scadaItem.tempPool.text = qsTr((_value/10).toFixed(1) + "°C");
         }
         function onChangedInput101(_value){
-            rectangleLeft.scadaItem.tempFloor.text = qsTr((_value/10).toFixed(1) + "°C");
+            return rectangleLeft.scadaItem.tempFloor.text = qsTr((_value/10).toFixed(1) + "°C");
         }
         function onChangedInput102(_value){
-            rectangleLeft.scadaItem.tempHeater.text = qsTr((_value/10).toFixed(1) + "°C");
+            return rectangleLeft.scadaItem.tempHeater.text = qsTr((_value/10).toFixed(1) + "°C");
         }
         function onChangedInput103(_value){
-            rectangleLeft.scadaItem.tempPoolImp.text = qsTr((_value/10).toFixed(1) + "°C");
+            return rectangleLeft.scadaItem.tempPoolImp.text = qsTr((_value/10).toFixed(1) + "°C");
         }
         function onChangedInput104(_value){
-            rectangleLeft.scadaItem.tempFloorImp.text = qsTr((_value/10).toFixed(1) + "°C");
+            return rectangleLeft.scadaItem.tempFloorImp.text = qsTr((_value/10).toFixed(1) + "°C");
         }
         function onChangedInput105(_value){
-            rectangleLeft.scadaItem.tempReturn.text = qsTr((_value/10).toFixed(1) + "°C");
+            return rectangleLeft.scadaItem.tempReturn.text = qsTr((_value/10).toFixed(1) + "°C");
         }
         function onChangedInput106(_value){
-            rectangleLeft.scadaItem.tempSreies.text = qsTr((_value/10).toFixed(1) + "°C");
+            return rectangleLeft.scadaItem.tempSreies.text = qsTr((_value/10).toFixed(1) + "°C");
         }
         function onChangedInput107(_value){
-            rectangleLeft.scadaItem.pressureReturn.text = qsTr((_value/10).toFixed(1) + "bar");
+            return rectangleLeft.scadaItem.pressureReturn.text = qsTr((_value/10).toFixed(1) + "bar");
         }
         function onChangedInput108(_value){
-            rectangleLeft.scadaItem.hgFloor.text = qsTr("" + (_value/10).toFixed(1) + "%");
+            return rectangleLeft.scadaItem.hgFloor.text = qsTr("" + (_value/10).toFixed(1) + "%");
         }
         function onChangedInput116(_value){
-            rectangleLeft.scadaItem.desiredTempPool.text = qsTr("" + (_value/10).toFixed(1) + "°C");
+            return rectangleLeft.scadaItem.desiredTempPool.text = qsTr("" + (_value/10).toFixed(1) + "°C");
         }
         function onChangedInput117(_value){
-            rectangleLeft.scadaItem.desiredTempFloor.text = qsTr("" + (_value/10).toFixed(1) + "°C");
+            return rectangleLeft.scadaItem.desiredTempFloor.text = qsTr("" + (_value/10).toFixed(1) + "°C");
         }
         function onChangedInput118(_value){
-            rectangleRight.coldHotSwitch.desiredState.text = qsTr("" + (_value/10).toFixed(0)+ "/6")
+            return rectangleRight.coldHotSwitch.desiredState.text = qsTr("" + (_value/10).toFixed(0)+ "/6")
         }
 
     }

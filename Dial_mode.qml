@@ -44,7 +44,6 @@ Item  {
 
             serial.sendTemperaturePool(rectangleRight.thermostatPool.desiredTemp);
             serial.sendTemperatureFloor(rectangleRight.thermostatFloor.desiredTemp)
-
         }
     }
 

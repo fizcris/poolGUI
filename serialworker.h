@@ -13,6 +13,7 @@ class SerialWorker : public QObject
 public:
     explicit SerialWorker(QQueue<Frame*> *outFrameQueue, QObject *parent = nullptr);
     ~SerialWorker();
+
     void requestWork();
     void abort();
 private:
@@ -34,7 +35,7 @@ private:
 
 signals:
     void workRequested();
-    void valueChanged(const QString &value);
+    //void valueChanged(const QString &value);
     void finished();
     void frameReceived(Frame *frame);
     void serialConnected(bool _value);

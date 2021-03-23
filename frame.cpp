@@ -21,7 +21,7 @@ Frame::Frame(quint8 cmd, qint8 data, QObject *parent) : QObject(parent)
     m_buffer[INDEX_START_OF_FRAME] = FRAME_START;
     m_buffer[INDEX_CMD] = cmd;
     m_buffer[INDEX_DATA_LENGTH] = 1;
-    m_buffer[INDEX_FIRST_DATA_BYTE] = quint8(data);
+    m_buffer[INDEX_FIRST_DATA_BYTE] = qint8(data);
     m_buffer += CalculateChecksum();
 }
 
@@ -37,11 +37,11 @@ Frame::Frame(quint8 cmd, quint16 data, QObject *parent) : QObject(parent)
 
 Frame::Frame(quint8 cmd, qint16 data, QObject *parent) : QObject(parent)
 {
-    m_buffer[INDEX_START_OF_FRAME] = FRAME_START;
-    m_buffer[INDEX_CMD] = cmd;
-    m_buffer[INDEX_DATA_LENGTH] = 2;
-    m_buffer[INDEX_FIRST_DATA_BYTE] = quint8((data & 0xFF00) >> 8);
-    m_buffer[INDEX_FIRST_DATA_BYTE + 1] = quint8(data & 0x00FF);
+    m_buffer.insert(INDEX_START_OF_FRAME,FRAME_START);
+    m_buffer.insert(INDEX_CMD, cmd);
+    m_buffer.insert(INDEX_DATA_LENGTH,2);
+    m_buffer.insert(INDEX_FIRST_DATA_BYTE, qint8((data & 0xFF00) >> 8));
+    m_buffer.insert((INDEX_FIRST_DATA_BYTE + 1) , qint8(data & 0x00FF));
     m_buffer += CalculateChecksum();
 }
 
@@ -63,9 +63,9 @@ Frame::Frame(quint8 cmd, qint32 data, QObject *parent) : QObject(parent)
     m_buffer[INDEX_CMD] = cmd;
     m_buffer[INDEX_DATA_LENGTH] = 4;
     m_buffer[INDEX_FIRST_DATA_BYTE] = quint8((quint32(data) & 0xFF000000) >> 24);
-    m_buffer[INDEX_FIRST_DATA_BYTE + 1] = quint8((data & 0x00FF0000) >> 16);
-    m_buffer[INDEX_FIRST_DATA_BYTE + 2] = quint8((data & 0x0000FF00) >> 8);
-    m_buffer[INDEX_FIRST_DATA_BYTE + 3] = quint8(data & 0x000000FF);
+    m_buffer[INDEX_FIRST_DATA_BYTE + 1] = qint8((data & 0x00FF0000) >> 16);
+    m_buffer[INDEX_FIRST_DATA_BYTE + 2] = qint8((data & 0x0000FF00) >> 8);
+    m_buffer[INDEX_FIRST_DATA_BYTE + 3] = qint8(data & 0x000000FF);
     m_buffer += CalculateChecksum();
 }
 
@@ -101,11 +101,10 @@ quint8 Frame::GetCmd()
 quint8  Frame::GetDataLength()
 {
     quint8 rv = 0;
-    if(m_buffer.count() > INDEX_CMD)
-        rv = quint8(m_buffer[INDEX_DATA_LENGTH]);
-    return rv;
+        if(m_buffer.size() > INDEX_CMD)
+            rv = quint8(m_buffer[INDEX_DATA_LENGTH]);
+        return rv;
 }
-
 
 quint8  Frame::GetBufferLength()
 {
@@ -148,15 +147,15 @@ quint8 Frame::GetIndexedByte(int index)
 quint16 Frame::GetUInt16()
 {
     quint16 rv = 0;
-    if(this->GetDataLength() >= 2)
-        rv = quint16(makeWord(m_buffer.at(INDEX_FIRST_DATA_BYTE + 1), m_buffer.at(INDEX_FIRST_DATA_BYTE)));
+    if(this->GetDataLength() > 0)
+        rv = quint16(makeWord(m_buffer[INDEX_FIRST_DATA_BYTE + 1], m_buffer[INDEX_FIRST_DATA_BYTE]));
     return rv;
 }
 
 quint16 Frame::GetUInt16(int index)
 {
     quint16 rv = 0;
-    if(this->GetDataLength() >= 2 + index)
+    if(this->GetDataLength() > 0)
         rv = quint16(makeWord(m_buffer[INDEX_FIRST_DATA_BYTE + 1 + index], m_buffer[INDEX_FIRST_DATA_BYTE + index]));
     return rv;
 }
@@ -164,7 +163,7 @@ quint16 Frame::GetUInt16(int index)
 qint16  Frame::GetInt16()
 {
     qint16 rv = 0;
-    if(this->GetDataLength() >= 2)
+    if(this->GetDataLength() > 0)
         rv = qint16(makeWord(m_buffer[INDEX_FIRST_DATA_BYTE + 1], m_buffer[INDEX_FIRST_DATA_BYTE]));
     return rv;
 }
@@ -172,7 +171,7 @@ qint16  Frame::GetInt16()
 quint32 Frame::GetUInt32()
 {
     quint32 rv = 0;
-    if(this->GetDataLength() >= 4)
+    if(this->GetDataLength() > 0)
         rv = quint32(makeDWord(makeWord(m_buffer[INDEX_FIRST_DATA_BYTE + 3], m_buffer[INDEX_FIRST_DATA_BYTE + 2]),
                 makeWord(m_buffer[INDEX_FIRST_DATA_BYTE + 1], m_buffer[INDEX_FIRST_DATA_BYTE])));
     return rv;
@@ -181,7 +180,7 @@ quint32 Frame::GetUInt32()
 quint32 Frame::GetUInt32(int index)
 {
     quint32 rv = 0;
-    if(this->GetDataLength() >= 4)
+    if(this->GetDataLength() > 0)
         rv = quint32(makeDWord(makeWord(m_buffer[INDEX_FIRST_DATA_BYTE + 3 + index], m_buffer[INDEX_FIRST_DATA_BYTE + 2 + index]),
                 makeWord(m_buffer[INDEX_FIRST_DATA_BYTE + 1 + index], m_buffer[INDEX_FIRST_DATA_BYTE + index])));
     return rv;
@@ -190,7 +189,7 @@ quint32 Frame::GetUInt32(int index)
 qint32 Frame::GetInt32()
 {
     qint32 rv = 0;
-    if(this->GetDataLength() >= 4)
+    if(this->GetDataLength() > 0)
         rv = qint32(makeDWord(makeWord(m_buffer[INDEX_FIRST_DATA_BYTE + 3], m_buffer[INDEX_FIRST_DATA_BYTE + 2]),
                 makeWord(m_buffer[INDEX_FIRST_DATA_BYTE + 1], m_buffer[INDEX_FIRST_DATA_BYTE])));
     return rv;

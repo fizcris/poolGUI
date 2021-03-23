@@ -54,10 +54,10 @@ void SerialWorker::doWork()
     quint8 checksum = 0, xored = 0x00;
     int dataLength = 0;
     // For WD
-    bool isSerialConected = true;
+    //bool isSerialConected = false;
     QDateTime startTime = QDateTime::currentDateTime();
-    qint16 msecondsDiff = 0;
-    qint16 timeoutmSeconds = 1000;
+//    qint16 secondsDiff = 0;
+//    qint16 timeoutSeconds = 1;
 
     // Serial Port Initialization
     m_Serial = new QSerialPort();
@@ -73,38 +73,38 @@ void SerialWorker::doWork()
 
     while(!abort)
     {
-        QThread::msleep(5);
+        //QThread::msleep(5);
         //qDebug() << "isSerialConected:" << isSerialConected;
-        if (_isSerialconnected != isSerialConected){
-            _isSerialconnected = isSerialConected;
-            emit serialConnected(_isSerialconnected);
-        }
+//        if (_isSerialconnected != isSerialConected){
+//            _isSerialconnected = isSerialConected;
+//            emit serialConnected(_isSerialconnected);
+//        }
 
-        msecondsDiff = startTime.msecsTo(QDateTime::currentDateTime());
-        //qDebug() << "Watchdog Time:" << secondsDiff;
-        if (msecondsDiff >= timeoutmSeconds){
-            isSerialConected =false;
-            QThread::sleep(1);
-            startTime = QDateTime::currentDateTime(); //Reset Wd
-            mutex.lock();
-            abort = _abort;
-            mutex.unlock();
-        };
+//        secondsDiff = startTime.secsTo(QDateTime::currentDateTime());
+//        //qDebug() << "Watchdog Time:" << secondsDiff;
+//        if (secondsDiff >= timeoutSeconds){
+////            isSerialConected =false;
+//            //QThread::sleep(1);
+//            startTime = QDateTime::currentDateTime(); //Reset Wd
+//            //mutex.lock();
+//            //abort = _abort;
+//            //mutex.unlock();
+//        };
 
-        mutex.lock();
-        abort = _abort;
-        mutex.unlock();
+        //mutex.lock();
+        //abort = _abort;
+        //mutex.unlock();
 
         if(!m_outFrameQueue->isEmpty())
         {
             Frame *outFrame = m_outFrameQueue->dequeue();
             sendFrame(outFrame);
-            outFrame->deleteLater();
+            delete outFrame;
 
 
         } else
         {
-            if (m_Serial->waitForReadyRead(10))
+            if (m_Serial->waitForReadyRead(10) )
             {
                 QByteArray receivedData = m_Serial->readAll();
 
@@ -157,8 +157,11 @@ void SerialWorker::doWork()
                             numByte--;
                             if (numByte == 0)
                                 receiverStatus = RCV_ST_CHECKSUM;
-                            else if (numByte < 0)
+                            else if (numByte < 0){
                                 receiverStatus = RCV_ST_IDLE;
+                                delete m_inFrame;
+                            }
+
                         } break;
 
                         case RCV_ST_CHECKSUM:
@@ -172,19 +175,20 @@ void SerialWorker::doWork()
                                 m_inFrame->AddByte(checksum);
                                 emit this->frameReceived(m_inFrame);
                                 //Reset watchdog
-                                isSerialConected = true;
+//                                isSerialConected = true;
                                 startTime = QDateTime::currentDateTime();
                             }
                             else
                             {
-                                receiverStatus = RCV_ST_IDLE;
                                 delete m_inFrame;
+                                receiverStatus = RCV_ST_IDLE;
                             }
                         } break;
                         }
                     }
                 }
             }
+
         }
     }
 
@@ -236,7 +240,7 @@ void SerialWorker::sendUint32(quint8 cmd, quint32 data)
 
 void SerialWorker::sendFrame(Frame *frame)
 {
-    if(m_Serial != nullptr && m_Serial->isOpen() && frame != nullptr && _isSerialconnected)
+    if(m_Serial != nullptr && m_Serial->isOpen() && frame != nullptr)
     {
         sendData(frame);
 
@@ -255,25 +259,26 @@ void SerialWorker::sendData(Frame *frame)
 {
     int dataToSend = 0;
     int frameLength = frame->GetDataLength() + Frame::FRAME_NUM_EXTRA_BYTES;
-    QByteArray outBuffer;
-    outBuffer.resize(frameLength);
-    QByteArray frameBuffer = frame->GetBuffer();
+    if (frame->GetDataLength() > 0){
+        QByteArray outBuffer;
+        outBuffer.resize(frameLength);
+        QByteArray frameBuffer = frame->GetBuffer();
 
-    outBuffer.insert(dataToSend++, Frame::FRAME_START);
+        quint8 value;
 
-    quint8 value;
-
-    for(int i = 1; i < frameLength; i++)
-    {
-        value = frameBuffer.at(i);
-        if(value == Frame::FRAME_START || value == Frame::FRAME_ESCAPE_CHAR)
+        outBuffer[dataToSend++] = Frame::FRAME_START;
+        for(int i = 1; i < frameLength; i++)
         {
-            //qDebug() << "SPECIAL CHAR: " << value << " - AT INDEX: " << i;
-            outBuffer.insert(dataToSend++,Frame::FRAME_ESCAPE_CHAR);
-            outBuffer.insert(dataToSend++,value ^ Frame::FRAME_XOR_CHAR);
-        } else
-            outBuffer.insert(dataToSend++, value);
-    }
+            value = frameBuffer.at(i);
+            if(value == Frame::FRAME_START || value == Frame::FRAME_ESCAPE_CHAR)
+            {
+                //qDebug() << "SPECIAL CHAR: " << value << " - AT INDEX: " << i;
+                outBuffer[dataToSend++]= Frame::FRAME_ESCAPE_CHAR;
+                outBuffer[dataToSend++] = value ^ Frame::FRAME_XOR_CHAR;
+            } else
+                outBuffer[dataToSend++] = value;
+        }
 
-    m_Serial->write(outBuffer);
+        m_Serial->write(outBuffer);
+    }
 }
