@@ -54,10 +54,10 @@ void SerialWorker::doWork()
     quint8 checksum = 0, xored = 0x00;
     int dataLength = 0;
     // For WD
-    //bool isSerialConected = false;
+    bool isSerialConected = false;
     QDateTime startTime = QDateTime::currentDateTime();
-//    qint16 secondsDiff = 0;
-//    qint16 timeoutSeconds = 1;
+    qint16 secondsDiff = 0;
+    qint16 timeoutSeconds = 1;
 
     // Serial Port Initialization
     m_Serial = new QSerialPort();
@@ -74,26 +74,26 @@ void SerialWorker::doWork()
     while(!abort)
     {
         //QThread::msleep(5);
-        //qDebug() << "isSerialConected:" << isSerialConected;
-//        if (_isSerialconnected != isSerialConected){
-//            _isSerialconnected = isSerialConected;
-//            emit serialConnected(_isSerialconnected);
-//        }
+//        qDebug() << "isSerialConected:" << isSerialConected;
+        if (_isSerialconnected != isSerialConected){
+            _isSerialconnected = isSerialConected;
+            emit this->serialConnected(_isSerialconnected);
+            }
 
-//        secondsDiff = startTime.secsTo(QDateTime::currentDateTime());
-//        //qDebug() << "Watchdog Time:" << secondsDiff;
-//        if (secondsDiff >= timeoutSeconds){
-////            isSerialConected =false;
+        secondsDiff = startTime.secsTo(QDateTime::currentDateTime());
+//        qDebug() << "Watchdog Time:" << secondsDiff;
+        if (secondsDiff >= timeoutSeconds){
+            isSerialConected = false;
 //            //QThread::sleep(1);
-//            startTime = QDateTime::currentDateTime(); //Reset Wd
+            startTime = QDateTime::currentDateTime(); //Reset Wd
 //            //mutex.lock();
 //            //abort = _abort;
 //            //mutex.unlock();
-//        };
+        };
 
-        //mutex.lock();
-        //abort = _abort;
-        //mutex.unlock();
+        mutex.lock();
+        abort = _abort;
+        mutex.unlock();
 
         if(!m_outFrameQueue->isEmpty())
         {
@@ -175,7 +175,7 @@ void SerialWorker::doWork()
                                 m_inFrame->AddByte(checksum);
                                 emit this->frameReceived(m_inFrame);
                                 //Reset watchdog
-//                                isSerialConected = true;
+                                isSerialConected = true;
                                 startTime = QDateTime::currentDateTime();
                             }
                             else

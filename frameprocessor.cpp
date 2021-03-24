@@ -173,3 +173,8 @@ void FrameProcessor::sendTemperatureFloor(quint16 temp)
     //qDebug() << "Temp to send: " << temp;
     m_outFrameQueue->enqueue(frameToSend);
 }
+
+void FrameProcessor::serialConnectedSlot(bool _value)
+{
+    emit changedSerial(_value);
+}

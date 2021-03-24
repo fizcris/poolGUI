@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
     QQmlContext* ctx = engine.rootContext();
     // Set property serial
     ctx->setContextProperty("serial", frameProcessor);
-    ctx->setContextProperty("serialWorker", serialWorker);
+    //ctx->setContextProperty("serialWorker", serialWorker);
 
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
@@ -45,6 +45,7 @@ int main(int argc, char *argv[])
     // Move serial worker to a separated frame
     serialWorker->moveToThread(threadSerial);
     //Define SIGNALS and SLOTS
+    QObject::connect(serialWorker, SIGNAL(serialConnected(bool)), frameProcessor, SLOT(serialConnectedSlot(bool)),Qt::QueuedConnection);
     QObject::connect(serialWorker, SIGNAL(frameReceived(Frame*)), frameProcessor, SLOT(FrameIncoming(Frame*)));
     QObject::connect(serialWorker, SIGNAL(workRequested()), threadSerial, SLOT(start()));
     QObject::connect(threadSerial, SIGNAL(started()), serialWorker, SLOT(doWork()),Qt::DirectConnection);

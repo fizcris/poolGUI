@@ -73,6 +73,8 @@ signals:
     void changedInput116(int _value);
     void changedInput117(int _value);
     void changedInput118(int _value);
+    void changedSerial(bool _value);
+
 
 
 public slots:
@@ -88,6 +90,7 @@ public slots:
 
     void sendTemperaturePool(quint16 temp);
     void sendTemperatureFloor(quint16 temp);
+    void serialConnectedSlot(bool _value);
 
 };
 

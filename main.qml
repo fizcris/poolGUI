@@ -117,31 +117,27 @@ Window {
         function onChangedInput118(_value){
             return rectangleRight.coldHotSwitch.desiredState.text = qsTr("" + (_value/10).toFixed(0)+ "/6")
         }
-
-    }
-
-    Connections
-    { target: serialWorker
-        function onSerialConnected(_value){
-            if(_value){
+        function onChangedSerial(_value){
+            if (_value){
                 //TODO implement disable state (Problems with threads)
                 rectangleTop.usbIconColor.color = "green";
                 //rectangleTop.onOffSwitch.enabled = true;
                 //rectangleTop.onOffSwitch.setState("disabled");
-            }else {
+            }else{
                 rectangleTop.usbIconColor.color = "red";
                 //rectangleTop.onOffSwitch.switchOnOff.checked = false;
                 //rectangleTop.onOffSwitch.enabled = false;
                 //rectangleTop.onOffSwitch.setState("enabled");
             }
         }
-    }
 
-    //Heartbeat Serial signal with current state
-    Timer {
-        interval: 1000; running: true; repeat: true;
-        onTriggered: {rectangleRight.dialMode.sendState(); }
+
     }
+        //Heartbeat Serial signal with current state
+        Timer {
+            interval: 1000; running: true; repeat: true;
+            onTriggered: {rectangleRight.dialMode.sendState(); }
+        }
 
 
 }
