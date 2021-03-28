@@ -114,7 +114,7 @@ Item  {
 
             }
             TapHandler {
-                enabled: rectangleRight.coldHotSwitch.enabled
+                enabled: dial_dial_mode.enabled && hc_switch.checked
                 onTapped: dial_dial_mode.value = 2
             }
         }
@@ -187,7 +187,11 @@ Item  {
         inputMode: Dial.Circular
         snapMode: Dial.SnapAlways
         onValueChanged: {
+            if (!hc_switch.checked && dial_dial_mode.value === 2){
+                dial_dial_mode.value = 3;
+            } else {
             setState();
+            }
         }
 
         handle {
@@ -224,6 +228,7 @@ Item  {
             PropertyChanges { target: dial_text; text: qsTr("Piscina") }
             PropertyChanges { target: pool_icon_color; color: "orange"; visible:true  }
             PropertyChanges { target: knob_background; color: "orange"; opacity: 1;}
+            PropertyChanges { target: series_icon; opacity: 0.3;}
             PropertyChanges { target: thermostat_pool; enabled: true;}
             PropertyChanges { target: rectangleLeft.scadaItem.scadaImage; source: "qrc:/resources/scada/scada_hot_pool.png";}
             PropertyChanges { target: rectangleLeft.scadaItem.scadaPumpPool; source: "qrc:/resources/scada/pump_on.png";}
@@ -234,6 +239,7 @@ Item  {
             name:"hot_floor"
             PropertyChanges { target: dial_text; text: qsTr("Suelo") }
             PropertyChanges { target: floor_icon_color; color: "orange"; visible:true  }
+            PropertyChanges { target: series_icon; opacity: 0.3;}
             PropertyChanges { target: knob_background; color: "orange"; opacity: 1;}
             PropertyChanges { target: thermostat_floor; enabled: true;}
             PropertyChanges { target: rectangleLeft.scadaItem.scadaImage; source: "qrc:/resources/scada/scada_hot_floor.png";}
@@ -260,6 +266,7 @@ Item  {
             PropertyChanges { target: dial_text; text: qsTr("Paralelo") }
             PropertyChanges { target: paralell_icon_color; color: "orange"; visible:true  }
             PropertyChanges { target: knob_background; color: "orange"; opacity: 1;}
+            PropertyChanges { target: series_icon; opacity: 0.3;}
             PropertyChanges { target: thermostat_pool; enabled: true;}
             PropertyChanges { target: thermostat_floor; enabled: true;}
             PropertyChanges { target: rectangleLeft.scadaItem.scadaImage; source: "qrc:/resources/scada/scada_hot_paralell.png";}
