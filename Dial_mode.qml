@@ -110,11 +110,9 @@ Item  {
                     color: "gray"
                     visible: false
                 }
-
-
             }
             TapHandler {
-                enabled: dial_dial_mode.enabled && hc_switch.checked
+                enabled: hc_switch.checked
                 onTapped: dial_dial_mode.value = 2
             }
         }
