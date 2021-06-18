@@ -25,6 +25,8 @@ The system can be used as a <span style="color:orange">heating system</span> by 
 ### Improvements [TODOs]:
 - Clear unused code (Themes...)
 - Add extra configuration screen for hyperparameters
+- Add a decimal point on temperature dials
+- Fix decades number jumping one position when using arrows in dials
 - In refrigeration mode:
     - Add control by pool delta
     - Add extra label showing pool delta
