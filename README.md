@@ -37,8 +37,15 @@ The system can be used as a <span style="color:orange">heating system</span> by 
 - Add fan control hardware and software
 
 ***
-## Instalation schema
-![Main Window](./resources/schema.jpg)
+## Instalation details
 
-## Pool rendering
-![Main Window](./resources/pool.jpg)
+<table>
+    <tr>
+        <td>
+        <img src="resources/schema.jpg" alt="schema" width="400" />
+        </td>
+        <td>
+        <img src="resources/pool.jpg" alt="pool rendering" width="400" />
+        </td>
+    </tr>
+</table>
