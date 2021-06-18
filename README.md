@@ -27,10 +27,12 @@ The system can be used as a <span style="color:orange">heating system</span> by 
 - Add extra configuration screen for hyperparameters
 - Add a decimal point on temperature dials
 - Fix decades number jumping one position when using arrows in dials
+
 - In refrigeration mode:
     - Add control by pool delta
     - Add extra label showing pool delta
 - Design new hardware with extra inputs to detect valve position (active when ground)
+- Visualice pumps/valves icons dependign on actual state rather on scenario based 
 - Switch to CAN bus
     - Error message handling
     - Acknoledgment of messages
@@ -42,10 +44,23 @@ The system can be used as a <span style="color:orange">heating system</span> by 
 <table>
     <tr>
         <td>
-        <img src="resources/schema.jpg" alt="schema" width="400" />
+            <img src="resources/schema.jpg" alt="schema" width="400" />
         </td>
         <td>
-        <img src="resources/pool.jpg" alt="pool rendering" width="400" />
+            <img src="resources/pool.jpg" alt="pool rendering" width="400" />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img src="resources/instalation.jpg" alt="pool rendering" width="400" />
+        </td>
+        <td>
+            <img src="resources/screen.jpg" alt="pool rendering" width="400" />
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+        <img src="resources/result.jpg" alt="pool rendering" width="800" />
         </td>
     </tr>
 </table>
