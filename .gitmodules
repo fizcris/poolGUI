@@ -1,0 +1,3 @@
+[submodule "poolGui-Arduino"]
+	path = poolGui-Arduino
+	url = https://github.com/fizcris/poolGui-Arduino.git
