@@ -1,7 +1,7 @@
 # poolGUI
-GUI created in Qt  5.14 to control an indoor swimming pool heating system coupled with a heating floor installtion in order to control pool water temperature and ambient temperature.
+GUI created in Qt Creator 5.14 to control an indoor swimming pool heating system coupled with a heating floor installation in order to control pool water temperature and ambient temperature.
 
-The system can be used as a <span style="color:orange">heating system</span> employing an enviromental friendly boiler or it can act as a <span style="color:lightblue">refrigeration system</span> using the pool as heat sink. 
+The system can be used as a <span style="color:orange">heating system</span> by using an enviromental friendly boiler or it can act as a <span style="color:lightblue">refrigeration system</span> employing the pool as heat sink. 
 
 ![Main Window](./resources/screenshot.gif)
 
