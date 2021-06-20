@@ -39,6 +39,7 @@ The system can be used as a <span style="color:orange">heating system</span> by 
     - Error message handling
     - Acknoledgment of messages
 - Add fan control hardware and software
+- Find a way to make web-interactive
 
 ***
 ## Instalation details
