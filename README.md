@@ -31,6 +31,8 @@ The system can be used as a <span style="color:orange">heating system</span> by 
 - In refrigeration mode:
     - Add control by pool delta
     - Add extra label showing pool delta
+- In heat mode:
+    - Do not start pumps until a minimum temperature is reached   
 - Design new hardware with extra inputs to detect valve position (active when ground)
 - Visualice pumps/valves icons dependign on actual state rather on scenario based 
 - Switch to CAN bus
